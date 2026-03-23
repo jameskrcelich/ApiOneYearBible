@@ -7,21 +7,18 @@ namespace ApiOneYearBible.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly IBibleReadingsRepository repo;
+    private readonly IBibleReadingsRepository _repo;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IBibleReadingsRepository repo)
     {
+        _repo = repo;
         _logger = logger;
     }
     
-    public HomeController(BibleReadingsRepository repo)
-    {
-        this.repo = repo;
-    }
     
     public IActionResult Index()
     {
-        var bibleReadings = repo.GetAllBibleReadings();
+        var bibleReadings = _repo.GetAllBibleReadings();
         return View(bibleReadings);
     }
 

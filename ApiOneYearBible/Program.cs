@@ -12,17 +12,7 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews();
         
-        /*builder.Services.AddScoped<BibleReadingsRepository>((s) =>
-        {
-            BibleReadingsRepository conn = new BibleReadingsRepository();
-            //conn.Open();
-            //return conn;
-        });*/
         builder.Services.AddScoped<IBibleReadingsRepository, BibleReadingsRepository>();
-
-        builder.Services.AddTransient<IBibleReadingsRepository, BibleReadingsRepository>();
-        
-        builder.Services.AddHttpClient<IBibleReadingsRepository, BibleReadingsRepository>();
 
         var app = builder.Build();
 

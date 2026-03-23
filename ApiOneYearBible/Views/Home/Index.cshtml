@@ -1,15 +1,32 @@
-﻿@model IEnumerable<BibleReadings>
+﻿@model ApiOneYearBible.Models.BibleReadings
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>For today's date: </p>
     <table>
         <tr>
-            <th>Old Testament Reading></th></tr>
-        @foreach (var reading in @Model)
-        {
-            <tr>
-                <td>@reading.OldTestamentVerses</td>
-            </tr>
+            <th>Old Testament Reading</th>
+        </tr>
+        <tr>
+            <td>@Model.OldTestamentVerses</td>
+        </tr>
+        <tr>
+            <th>New Testament Reading</th>
+        </tr>
+        <tr>
+            <td>@Model.NewTestamentVerses</td>
+        </tr>
+        <tr>
+            <th>Psalm</th>
+        </tr>
+        <tr>
+            <td>@Model.PsalmVerses</td>
+        </tr>
+        <tr>
+            <th>Proverb</th>
+        </tr>
+        <tr>
+            <td>@Model.ProverbVerses</td>
+        </tr>
         }
     </table>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>

@@ -9,12 +9,12 @@ namespace ApiOneYearBible;
 public class BibleReadingsRepository : IBibleReadingsRepository
 {
     private readonly BibleReadings repo;
-    private readonly DateOnly _dateOnly;
+    //private readonly DateOnly _dateOnly;
     static  readonly HttpClient client = new HttpClient();
     
-    public BibleReadingsRepository(BibleReadings bibleReadings)
+    public BibleReadingsRepository()
     {
-        repo = bibleReadings;
+        repo = new BibleReadings();
     }
 
     public BibleReadings GetAllBibleReadings()
@@ -25,17 +25,17 @@ public class BibleReadingsRepository : IBibleReadingsRepository
         // get the day of the current year
         int day = today.Day;
 
-        string fileLoc = @"C:\Users\jimkr\OneDrive\Desktop\repos\ApiOneYearBible\ApiOneYearBible\wwwroot\MarVerses.txt";
+        string fileLoc = Path.Combine(AppContext.BaseDirectory, "..", "..", "..","wwwroot", "MarVerses.txt");
         string line = File.ReadLines(fileLoc).ElementAtOrDefault(day - 1);
 
         // Delimiter is semicolon
         string[] readings = line.Split(';');
 
-        repo.OldTestamentVerses = readings[0];
-        repo.NewTestamentVerses = readings[1];
-        repo.PsalmVerses = readings[2];
-        repo.ProverbVerses = readings[3];
-        repo.monthDay = readings[4];
+        repo.OldTestamentVerses = readings[1];
+        repo.NewTestamentVerses = readings[2];
+        repo.PsalmVerses = readings[3];
+        repo.ProverbVerses = readings[4];
+        repo.monthDay = readings[0];
     
         Console.WriteLine($"{readings[1]}, {readings[2]}, {readings[3]}, {readings[4]}");
 
@@ -44,16 +44,17 @@ public class BibleReadingsRepository : IBibleReadingsRepository
 
         dynamic data = "";
 
-        for (var i = 0; i <= 4; i++)
+        for (var i = 1; i <= 4; i++)
         {
-            string url = $"https://bible-api.com/{readings[i]}?translation=kjv";
+            //string url = $"https://bible-api.com/{readings[i]}?translation=kjv";
+            string url = $"https://bible-api.com/Pro11:24-26?translation=kjv\";?translation=kjv";
 
             var bibleApiResponse = client.GetStringAsync(url).Result;
 
             // Process the JSON response (example using a simple dynamic approach)
             data = JsonConvert.DeserializeObject(bibleApiResponse);
 
-            repo.ApiText[i] = string.Copy(data.text);
+            repo.ApiText[i-1] = string.Copy(data.text);
         }
 
         // Console.WriteLine($"Passage: {data.reference}");
