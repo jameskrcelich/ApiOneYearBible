@@ -46,15 +46,33 @@ public class BibleReadingsRepository : IBibleReadingsRepository
 
         for (var i = 1; i <= 4; i++)
         {
-            //string url = $"https://bible-api.com/{readings[i]}?translation=kjv";
-            string url = $"https://bible-api.com/Pro11:24-26?translation=kjv\";?translation=kjv";
+            string translation = "KJV";
+            int book = 43; // John
+            int chapter = 3;
 
-            var bibleApiResponse = client.GetStringAsync(url).Result;
+            //string url = $"https://bolls.life/get-chapter/{translation}/{book}/{chapter}/";
+            
+            string url = $"https://bolls.life/get-chapter/{translation}/{book}/{chapter}/";
+
+            //string url = $"https://bible-api.com/{readings[i]}?translation=kjv";
+            //string url = $"https://bible-api.com/Pro11:24-26?translation=kjv\";?translation=kjv";
+
+            //var bibleApiResponse = client.GetStringAsync(url).Result;
+            try
+            {
+                string bibleApiResponse = await client.GetStringAsync(url);
+                Console.WriteLine(bibleApiResponse);
+                
+                data = JsonConvert.DeserializeObject(bibleApiResponse);
+                
+                repo.ApiText[i-1] = string.Copy(data.text);
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
+            }
 
             // Process the JSON response (example using a simple dynamic approach)
-            data = JsonConvert.DeserializeObject(bibleApiResponse);
-
-            repo.ApiText[i-1] = string.Copy(data.text);
         }
 
         // Console.WriteLine($"Passage: {data.reference}");
