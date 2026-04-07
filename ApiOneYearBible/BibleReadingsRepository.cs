@@ -2,79 +2,106 @@ using ApiOneYearBible.Models;
 using System;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Html;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ApiOneYearBible;
 
 public class BibleReadingsRepository : IBibleReadingsRepository
 {
     private readonly BibleReadings repo;
-    //private readonly DateOnly _dateOnly;
-    static  readonly HttpClient client = new HttpClient();
+    static  readonly HttpClient    client = new HttpClient();
     
     public BibleReadingsRepository()
     {
         repo = new BibleReadings();
     }
 
-    public BibleReadings GetAllBibleReadings()
+    private static readonly string[] MonthFilePrefix =
+    {
+        "", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    };
+
+    public async Task<BibleReadings> GetAllBibleReadings()
     {
         // getting the day of year will help index for that day's readings
         DateOnly today = DateOnly.FromDateTime(DateTime.Now);
 
         // get the day of the current year
-        int day = today.Day;
-
-        string fileLoc = Path.Combine(AppContext.BaseDirectory, "..", "..", "..","wwwroot", "MarVerses.txt");
-        string line = File.ReadLines(fileLoc).ElementAtOrDefault(day - 1);
+        string monthPrefix = MonthFilePrefix[today.Month];
+       
+        // The "month" text files contain all the readings for each day/month
+        string fileLoc = Path.Combine(AppContext.BaseDirectory, "..", "..", "..","wwwroot", $"{monthPrefix}Verses.txt");
+        string line    = File.ReadLines(fileLoc).ElementAtOrDefault(today.Day - 1);
 
         // Delimiter is semicolon
         string[] readings = line.Split(';');
 
+        repo.monthDay = readings[0];
         repo.OldTestamentVerses = readings[1];
         repo.NewTestamentVerses = readings[2];
-        repo.PsalmVerses = readings[3];
+        repo.PsalmVerses   = readings[3];
         repo.ProverbVerses = readings[4];
-        repo.monthDay = readings[0];
-    
-        Console.WriteLine($"{readings[1]}, {readings[2]}, {readings[3]}, {readings[4]}");
-
-        //Console.WriteLine($"{values[3]}");
-        //System.Diagnostics.Debug.WriteLine("My debug message here");
-
-        dynamic data = "";
-
+       
         for (var i = 1; i <= 4; i++)
         {
-            string translation = "KJV";
-            int book = 43; // John
-            int chapter = 3;
-
-            //string url = $"https://bolls.life/get-chapter/{translation}/{book}/{chapter}/";
+            // A reading may contain multiple comma-separated passages (e.g. "Deu2:1-37,Deu3:1-29")
+            // bible-api.com does not support cross-passage commas, so fetch each one separately
+            string[] passages = readings[i].Split(',');
+            var textParts = new List<string>();
             
-            string url = $"https://bolls.life/get-chapter/{translation}/{book}/{chapter}/";
+            foreach (string passage in passages)
+            {
+                //string url = $"https://bible-api.com/{passage.Trim()}?translation=asv";
+                //string url = $"https://labs.bible.org/api/?passage=Gen+50:26+Exo:1:1-5";
+                
+                //Deu28+1-68;Luk11+14-36;Psalm77+1-20;Pro12+18 */
+                string url = $"https://labs.bible.org/api/?passage={passage}&formatting=full";
+                
+                try
+                {
+                    string bibleApiResponse = await client.GetStringAsync(url);
+                    
+                    // API returns a single object: { "reference": "...", "text": "..." }
+                    //JObject data = JsonConvert.DeserializeObject<JObject>(bibleApiResponse);
+                    
+                    //textParts.Add(data["text"]?.ToString() ?? string.Empty);
+                  
+                    Console.WriteLine(bibleApiResponse);
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine($"Error fetching [{url}]: {e.Message}");
+                }
+            }
 
+            repo.ApiText[i - 1] = string.Join(" ", textParts);
+            
+            // 4 Api calls are made to bible-api.com: Old Testament, New Testament, Psalm and Proverbs
             //string url = $"https://bible-api.com/{readings[i]}?translation=kjv";
-            //string url = $"https://bible-api.com/Pro11:24-26?translation=kjv\";?translation=kjv";
-
-            //var bibleApiResponse = client.GetStringAsync(url).Result;
-            try
+            
+            /* try
             {
                 string bibleApiResponse = await client.GetStringAsync(url);
-                Console.WriteLine(bibleApiResponse);
+                Console.WriteLine(bibleApiResponse); // prints everything
+
+                JObject data = JsonConvert.DeserializeObject<JObject>(bibleApiResponse);
                 
-                data = JsonConvert.DeserializeObject(bibleApiResponse);
-                
-                repo.ApiText[i-1] = string.Copy(data.text);
+                repo.ApiText[i-1] = data["text"]?.ToString() ?? string.Empty;
             }
             catch (HttpRequestException e)
             {
-                Console.WriteLine($"Error: {e.Message}");
-            }
-
-            // Process the JSON response (example using a simple dynamic approach)
+                Console.WriteLine($"Error fetching [{url}]: {e.Message}");
+            } */
         }
-
+        
+        // Print all the daily readings.
+        Console.WriteLine($"{readings[1]}, {repo.ApiText[0]}");
+        Console.WriteLine($"{readings[2]}, {repo.ApiText[1]}");
+        Console.WriteLine($"{readings[3]}, {repo.ApiText[2]}");
+        Console.WriteLine($"{readings[4]}, {repo.ApiText[3]}");
+        
         // Console.WriteLine($"Passage: {data.reference}");
         // Console.WriteLine($"Text: {data.text}");
         // Console.WriteLine($"Text: {bibleApiResponse}");

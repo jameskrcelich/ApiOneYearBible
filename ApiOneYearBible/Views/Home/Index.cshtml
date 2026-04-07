@@ -1,33 +1,55 @@
-﻿@model ApiOneYearBible.Models.BibleReadings
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>For today's date: </p>
-    <table>
-        <tr>
-            <th>Old Testament Reading</th>
-        </tr>
-        <tr>
-            <td>@Model.OldTestamentVerses</td>
-        </tr>
-        <tr>
-            <th>New Testament Reading</th>
-        </tr>
-        <tr>
-            <td>@Model.NewTestamentVerses</td>
-        </tr>
-        <tr>
-            <th>Psalm</th>
-        </tr>
-        <tr>
-            <td>@Model.PsalmVerses</td>
-        </tr>
-        <tr>
-            <th>Proverb</th>
-        </tr>
-        <tr>
-            <td>@Model.ProverbVerses</td>
-        </tr>
-        }
-    </table>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@model ApiOneYearBible.Models.BibleReadings
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Year Bible</title>
+
+    <link rel="stylesheet" href="/css/Index.css">
+  </head>
+  <body>
+    
+    <div id="container">
+      <div id="header">
+        <div id="monthDisplay"></div>
+        <div>
+          <button id="backButton">Back</button>
+          <button id="nextButton">Next</button>
+        </div>
+      </div>
+
+      <div id="weekdays">
+        <div>Sunday</div>
+        <div>Monday</div>
+        <div>Tuesday</div>
+        <div>Wednesday</div>
+        <div>Thursday</div>
+        <div>Friday</div>
+        <div>Saturday</div>
+      </div>
+
+      <div id="calendar"></div>
+    </div>
+
+    <div id="newEventModal">
+      <h4>Daily Readings @Model.monthDay</h4>
+
+      <input id="eventTitleInput" placeholder="Event Title" />
+      <button id="saveButton">Cancel</button>
+      <button id="cancelButton">Cancel</button>
+    </div>
+
+    <div id="deleteEventModal">
+      <h2>Event</h2>
+
+      <p id="eventText"></p>
+
+      <button id="deleteButton">Delete</button>
+      <button id="closeButton">Close</button>
+    </div>
+
+    <div id="modalBackDrop"></div>
+
+    <script src="/js/script.js"></script>
+  </body>
+</html>

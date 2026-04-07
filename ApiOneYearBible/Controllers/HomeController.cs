@@ -16,9 +16,9 @@ public class HomeController : Controller
     }
     
     
-    public IActionResult Index()
+    public async Task <IActionResult> Index()
     {
-        var bibleReadings = _repo.GetAllBibleReadings();
+        var bibleReadings = await _repo.GetAllBibleReadings();
         return View(bibleReadings);
     }
 

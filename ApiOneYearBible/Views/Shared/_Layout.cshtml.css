@@ -35,9 +35,10 @@ a {
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
+
 
 .footer {
   position: absolute;

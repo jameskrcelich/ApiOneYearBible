@@ -5,6 +5,6 @@ namespace ApiOneYearBible;
 
 public interface IBibleReadingsRepository
 {
-    public BibleReadings GetAllBibleReadings();
+    public Task<BibleReadings> GetAllBibleReadings();
     //BibleReadings GetBibleReadings(DateOnly date);
 }
