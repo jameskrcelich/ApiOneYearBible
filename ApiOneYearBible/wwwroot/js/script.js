@@ -91,7 +91,7 @@ function closeModal() {
   load();
 }
 
-function saveEvent() {
+/*function saveEvent() {
   if (eventTitleInput.value) {
     eventTitleInput.classList.remove('error');
 
@@ -105,7 +105,7 @@ function saveEvent() {
   } else {
     eventTitleInput.classList.add('error');
   }
-}
+}*/
 
 function deleteEvent() {
   events = events.filter(e => e.date !== clicked);
@@ -124,7 +124,7 @@ function initButtons() {
     load();
   });
 
-  document.getElementById('saveButton').addEventListener('click', saveEvent);
+  //document.getElementById('saveButton').addEventListener('click', saveEvent);
   document.getElementById('cancelButton').addEventListener('click', closeModal);
   document.getElementById('deleteButton').addEventListener('click', deleteEvent);
   document.getElementById('closeButton').addEventListener('click', closeModal);

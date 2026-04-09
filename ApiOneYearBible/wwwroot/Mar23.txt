@@ -2,7 +2,8 @@
 03-26;Deu5:1-33,Deu6:1-25;Luk7:11-35;Psalm68:19-35;Pro11:29-31
 03-28;Deu9:1-29,Deu10:1-22;Luk8:4-21;Psalm69:19-36;Pro12:2-3
 https://labs.bible.org/api/?passage=Gen+50:26+Exo:1:1-10
-
+//string url = $"https://labs.bible.org/api/?passage=Gen+50:26+Exo:1:1-5";
+//04-05;Deu28:1-68;Luk11:14-36;Psalm77:1-20;Pro12:18
 
 string[] passages = readings[i].Split(',');
             var textParts = new List<string>();

@@ -1,14 +1,16 @@
-@model ApiOneYearBible.Models.BibleReadings
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One Year Bible</title>
-
-    <link rel="stylesheet" href="/css/Index.css">
-  </head>
-  <body>
-    
+﻿@model ApiOneYearBible.Models.BibleReadings
+@* <html lang="en"> *@
+@*   <head> *@
+@*     <meta charset="UTF-8"> *@
+@*     <meta name="viewport" content="width=device-width, initial-scale=1.0"> *@
+@*     <title>One Year Bible</title> *@
+@* *@
+@*     <link rel="stylesheet" href="/css/Index.css"> *@
+@*   </head> *@
+@*   <body> *@
+    @section Styles {
+      <link rel="stylesheet" href="/css/Index.css">
+    }
     <div id="container">
       <div id="header">
         <div id="monthDisplay"></div>
@@ -33,10 +35,25 @@
 
     <div id="newEventModal">
       <h4>Daily Readings @Model.monthDay</h4>
-
-      <input id="eventTitleInput" placeholder="Event Title" />
-      <button id="saveButton">Cancel</button>
-      <button id="cancelButton">Cancel</button>
+      <h6 style="color: red"><br />Old Testament Reading: @Model.OldTestamentVerses</h6>
+      <div>
+        @Html.Raw(Model.ApiText[0])
+      </div>
+      <h6 style="color: red"><br />New Testament Reading: @Model.NewTestamentVerses</h6>
+      <div>
+        @Html.Raw(Model.ApiText[1])
+      </div>
+      <h6 style="color: red"><br />Psalm Reading: @Model.PsalmVerses</h6>
+      <div>
+        @Html.Raw(Model.ApiText[2])
+      </div>
+      <h6 style="color: red"><br />Proverb Reading: @Model.ProverbVerses</h6>
+      <div>
+        @Html.Raw(Model.ApiText[3])
+      </div>
+      <input id="eventTitleInput" placeholder="" /> 
+      @* <button id="saveButton">Save</button> *@
+      <button id="cancelButton">Close</button> 
     </div>
 
     <div id="deleteEventModal">
@@ -51,5 +68,5 @@
     <div id="modalBackDrop"></div>
 
     <script src="/js/script.js"></script>
-  </body>
-</html>
+@*   </body> *@
+@* </html> *@
