@@ -15,14 +15,19 @@ public class HomeController : Controller
         _logger = logger;
     }
     
-    
-    public async Task <IActionResult> Index()
+    public IActionResult Index()
     {
-        var bibleReadings = await _repo.GetAllBibleReadings();
-        return View(bibleReadings);
+        return View();
     }
 
-   public IActionResult Privacy()
+    [HttpGet]
+    public async Task<IActionResult> GetReadings(DateOnly date)
+    {
+        var bibleReadings = await _repo.GetAllBibleReadings(date);
+        return Json(bibleReadings);
+    }
+    
+    public IActionResult Privacy()
     {
         return View();
     }

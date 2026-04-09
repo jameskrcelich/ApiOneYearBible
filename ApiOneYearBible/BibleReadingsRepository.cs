@@ -24,7 +24,7 @@ public class BibleReadingsRepository : IBibleReadingsRepository
         "", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     };
 
-    public async Task<BibleReadings> GetAllBibleReadings()
+    public async Task<BibleReadings> GetAllBibleReadings(DateOnly date)
     {
         // getting the day of year will help index for that day's readings
         DateOnly today = DateOnly.FromDateTime(DateTime.Now);
@@ -134,6 +134,5 @@ public class BibleReadingsRepository : IBibleReadingsRepository
             repo.ApiText[i - 1] = string.Join(" ", textParts);
         }
         return repo;
-    }
-        */
+    } */
 }

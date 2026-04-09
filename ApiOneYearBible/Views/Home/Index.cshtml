@@ -34,21 +34,22 @@
     </div>
 
     <div id="newEventModal">
-      <h4>Daily Readings @Model.monthDay</h4>
-      <h6 style="color: red"><br />Old Testament Reading: @Model.OldTestamentVerses</h6>
-      <div>
+      <h4>Daily Readings <span id="modelDate"></span></h4>
+      <div id="modelLoading" style="display:none;">loading...</div>
+      <h6 style="color: red"><br />Old Testament Reading: <span id="otRef"></span></h6>
+      <div id="otText">
         @Html.Raw(Model.ApiText[0])
       </div>
-      <h6 style="color: red"><br />New Testament Reading: @Model.NewTestamentVerses</h6>
-      <div>
+      <h6 style="color: red"><br />New Testament Reading: <span id="ntRef"></span></h6>
+      <div id="ntText">
         @Html.Raw(Model.ApiText[1])
       </div>
-      <h6 style="color: red"><br />Psalm Reading: @Model.PsalmVerses</h6>
-      <div>
+      <h6 style="color: red"><br />Psalm Reading: <span id="psalmRef"></span></h6>
+      <div id="psalmText">
         @Html.Raw(Model.ApiText[2])
       </div>
-      <h6 style="color: red"><br />Proverb Reading: @Model.ProverbVerses</h6>
-      <div>
+      <h6 style="color: red"><br />Proverb Reading: <span id="proverbRef"></span></h6>
+      <div id="proverbText">
         @Html.Raw(Model.ApiText[3])
       </div>
       <input id="eventTitleInput" placeholder="" /> 

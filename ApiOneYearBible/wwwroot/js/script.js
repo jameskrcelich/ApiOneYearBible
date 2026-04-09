@@ -17,11 +17,45 @@ function openModal(date) {
   if (eventForDay) {
     document.getElementById('eventText').innerText = eventForDay.title;
     deleteEventModal.style.display = 'block';
+    backDrop.style.display = 'block';
   } else {
+    const [month, day, year] = date.split('/');
+    const apiDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    
+    document.getElementById('modalDate').innerText = '';
+    document.getElementById('otRef').innerText = '';
+    document.getElementById('otText').innerHTML = '';
+    document.getElementById('ntRef').innerText = '';
+    document.getElementById('ntText').innerHTML = '';
+    document.getElementById('psalmRef').innerText = '';
+    document.getElementById('psalmText').innerHTML = '';
+    document.getElementById('proverbRef').innerText = '';
+    document.getElementById('proverbText').innerHTML = '';
+    document.getElementById('modalLoading').style.display = 'block';
+    
     newEventModal.style.display = 'block';
+    backDrop.style.display = 'block';
+    
+    fetch(`/Home/GetReadings?date=${apiDate}`)
+      .then(res => res.json())
+      .then(data => {
+          document.getElementById('modalLoading').style.display = 'none';
+          document.getElementById('modalDate').innerText = data.monthDay;
+          document.getElementById('otRef').innerText = data.oldTestamentVerses;
+          document.getElementById('otText').innerHTML = data.apiText[0];
+          document.getElementById('ntRef').innerText = data.newTestamentVerses;
+          document.getElementById('ntText').innerHTML = data.apiText[1];
+          document.getElementById('psalmRef').innerText = data.psalmVerses;
+          document.getElementById('psalmText').innerHTML = data.apiText[2];
+          document.getElementById('proverbRef').innerText = data.proverbVerses;
+          document.getElementById('proverbText').innerHTML = data.apiText[3];
+          
+      })
+      .catch(() => {
+          document.getElementById('modalLoading').innerText = 'failed to load readings';
+      })
   }
 
-  backDrop.style.display = 'block';
 }
 
 function load() {
