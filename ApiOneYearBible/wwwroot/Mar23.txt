@@ -1,9 +1,9 @@
-03-23;Num36:1-13;Deu1:1-46;Luk5:29-39;Luk6:1-11;Psalm66:1-20;Pro11:24-26
-03-26;Deu5:1-33,Deu6:1-25;Luk7:11-35;Psalm68:19-35;Pro11:29-31
-03-28;Deu9:1-29,Deu10:1-22;Luk8:4-21;Psalm69:19-36;Pro12:2-3
+03-23;Num36:1-13;Deuteronomy1:1-46;Luke5:29-39;Luke6:1-11;Psalm66:1-20;Pro11:24-26
+03-26;Deuteronomy5:1-33,Deuteronomy6:1-25;Luke7:11-35;Psalm68:19-35;Pro11:29-31
+03-28;Deuteronomy9:1-29,Deuteronomy10:1-22;Luke8:4-21;Psalm69:19-36;Pro12:2-3
 https://labs.bible.org/api/?passage=Gen+50:26+Exo:1:1-10
 //string url = $"https://labs.bible.org/api/?passage=Gen+50:26+Exo:1:1-5";
-//04-05;Deu28:1-68;Luk11:14-36;Psalm77:1-20;Pro12:18
+//04-05;Deuteronomy28:1-68;Luke11:14-36;Psalm77:1-20;Pro12:18
 
 string[] passages = readings[i].Split(',');
             var textParts = new List<string>();
@@ -41,7 +41,7 @@ public class BibleReadingsRepository : IBibleReadingsRepository
         Console.WriteLine($"{readings[1]}, {readings[2]}, {readings[3]}, {readings[4]}");
         for (var i = 1; i <= 4; i++)
         {
-            // A reading may contain multiple comma-separated passages (e.g. "Deu2:1-37,Deu3:1-29")
+            // A reading may contain multiple comma-separated passages (e.g. "Deuteronomy2:1-37,Deuteronomy3:1-29")
             // bible-api.com does not support cross-passage commas, so fetch each one separately
             string[] passages = readings[i].Split(',');
             var textParts = new List<string>();

@@ -585,7 +585,7 @@ summary {
   cursor: pointer;
 }
 
-progress {
+Proverbsgress {
   vertical-align: baseline;
 }
 
@@ -4948,14 +4948,14 @@ textarea.form-control-lg {
   --bs-alert-link-color: var(--bs-dark-text-emphasis);
 }
 
-@keyframes progress-bar-stripes {
+@keyframes Proverbsgress-bar-stripes {
   0% {
     background-position-x: 1rem;
   }
 }
-.progress,
-.progress-stacked {
-  --bs-progress-height: 1rem;
+.Proverbsgress,
+.Proverbsgress-stacked {
+  --bs-Proverbsgress-height: 1rem;
   --bs-progress-font-size: 0.75rem;
   --bs-progress-bg: var(--bs-secondary-bg);
   --bs-progress-border-radius: var(--bs-border-radius);

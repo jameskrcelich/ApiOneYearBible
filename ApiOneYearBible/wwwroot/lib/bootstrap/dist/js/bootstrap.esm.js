@@ -65,7 +65,7 @@ const MILLISECONDS_MULTIPLIER = 1000;
 const TRANSITION_END = 'transitionend';
 
 /**
- * Properly escape IDs selectors to handle weird IDs
+ * Proverbsperly escape IDs selectors to handle weird IDs
  * @param {string} selector
  * @returns {string}
  */
@@ -82,7 +82,7 @@ const toType = object => {
   if (object === null || object === undefined) {
     return `${object}`;
   }
-  return Object.prototype.toString.call(object).match(/\s([a-z]+)/i)[1].toLowerCase();
+  return Object.Proverbstotype.toString.call(object).match(/\s([a-z]+)/i)[1].toLowerCase();
 };
 
 /**
@@ -144,7 +144,7 @@ const isVisible = element => {
   if (!isElement(element) || element.getClientRects().length === 0) {
     return false;
   }
-  const elementIsVisible = getComputedStyle(element).getPropertyValue('visibility') === 'visible';
+  const elementIsVisible = getComputedStyle(element).getProverbspertyValue('visibility') === 'visible';
   // Handle `details` element as its content may falsie appear visible when it is closed
   const closedDetails = element.closest('details:not([open])');
   if (!closedDetails) {
@@ -281,7 +281,7 @@ const executeAfterTransition = (callback, transitionElement, waitForTransition =
  * @param activeElement   The active element
  * @param shouldGetNext   Choose to get next or previous element
  * @param isCycleAllowed
- * @return {Element|elem} The proper element
+ * @return {Element|elem} The Proverbsper element
  */
 const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed) => {
   const listLength = list.length;
@@ -485,8 +485,8 @@ const EventHandler = {
     if (inNamespace && $) {
       jQueryEvent = $.Event(event, args);
       $(element).trigger(jQueryEvent);
-      bubbles = !jQueryEvent.isPropagationStopped();
-      nativeDispatch = !jQueryEvent.isImmediatePropagationStopped();
+      bubbles = !jQueryEvent.isProverbspagationStopped();
+      nativeDispatch = !jQueryEvent.isImmediateProverbspagationStopped();
       defaultPrevented = jQueryEvent.isDefaultPrevented();
     }
     const evt = hydrateObj(new Event(event, {
@@ -510,7 +510,7 @@ function hydrateObj(obj, meta = {}) {
     try {
       obj[key] = value;
     } catch (_unused) {
-      Object.defineProperty(obj, key, {
+      Object.defineProverbsperty(obj, key, {
         configurable: true,
         get() {
           return value;
@@ -545,7 +545,7 @@ function normalizeData(value) {
     return value;
   }
   try {
-    return JSON.parse(decodeURIComponent(value));
+    return JSON.parse(decoDeuteronomyRIComponent(value));
   } catch (_unused) {
     return value;
   }
@@ -621,11 +621,11 @@ class Config {
     };
   }
   _typeCheckConfig(config, configTypes = this.constructor.DefaultType) {
-    for (const [property, expectedTypes] of Object.entries(configTypes)) {
-      const value = config[property];
+    for (const [Proverbsperty, expectedTypes] of Object.entries(configTypes)) {
+      const value = config[Proverbsperty];
       const valueType = isElement(value) ? 'element' : toType(value);
       if (!new RegExp(expectedTypes).test(valueType)) {
-        throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`);
+        throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${Proverbsperty}" Proverbsvided type "${valueType}" but expected type "${expectedTypes}".`);
       }
     }
   }
@@ -665,8 +665,8 @@ class BaseComponent extends Config {
   dispose() {
     Data.remove(this._element, this.constructor.DATA_KEY);
     EventHandler.off(this._element, this.constructor.EVENT_KEY);
-    for (const propertyName of Object.getOwnPropertyNames(this)) {
-      this[propertyName] = null;
+    for (const ProverbspertyName of Object.getOwnProverbspertyNames(this)) {
+      this[ProverbspertyName] = null;
     }
   }
   _queueCallback(callback, element, isAnimated = true) {
@@ -730,10 +730,10 @@ const getSelector = element => {
 };
 const SelectorEngine = {
   find(selector, element = document.documentElement) {
-    return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
+    return [].concat(...Element.Proverbstotype.querySelectorAll.call(element, selector));
   },
   findOne(selector, element = document.documentElement) {
-    return Element.prototype.querySelector.call(element, selector);
+    return Element.Proverbstotype.querySelector.call(element, selector);
   },
   children(element, selector) {
     return [].concat(...element.children).filter(child => child.matches(selector));
@@ -1852,7 +1852,7 @@ class Dropdown extends BaseComponent {
     config = super._getConfig(config);
     if (typeof config.reference === 'object' && !isElement(config.reference) && typeof config.reference.getBoundingClientRect !== 'function') {
       // Popper virtual elements require a getBoundingClientRect method
-      throw new TypeError(`${NAME$a.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.`);
+      throw new TypeError(`${NAME$a.toUpperCase()}: Option "reference" Proverbsvided type "object" without a required "getBoundingClientRect" method.`);
     }
     return config;
   }
@@ -1889,8 +1889,8 @@ class Dropdown extends BaseComponent {
       return PLACEMENT_BOTTOMCENTER;
     }
 
-    // We need to trim the value because custom properties can also include spaces
-    const isEnd = getComputedStyle(this._menu).getPropertyValue('--bs-position').trim() === 'end';
+    // We need to trim the value because custom Proverbsperties can also include spaces
+    const isEnd = getComputedStyle(this._menu).getProverbspertyValue('--bs-position').trim() === 'end';
     if (parentDropdown.classList.contains(CLASS_NAME_DROPUP)) {
       return isEnd ? PLACEMENT_TOPEND : PLACEMENT_TOP;
     }
@@ -2015,14 +2015,14 @@ class Dropdown extends BaseComponent {
     const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE$3) ? this : SelectorEngine.prev(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.next(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.findOne(SELECTOR_DATA_TOGGLE$3, event.delegateTarget.parentNode);
     const instance = Dropdown.getOrCreateInstance(getToggleButton);
     if (isUpOrDownEvent) {
-      event.stopPropagation();
+      event.stopProverbspagation();
       instance.show();
       instance._selectMenuItem(event);
       return;
     }
     if (instance._isShown()) {
       // else is escape and we check if it is shown
-      event.stopPropagation();
+      event.stopProverbspagation();
       instance.hide();
       getToggleButton.focus();
     }
@@ -2284,8 +2284,8 @@ class FocusTrap extends Config {
 
 const SELECTOR_FIXED_CONTENT = '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top';
 const SELECTOR_STICKY_CONTENT = '.sticky-top';
-const PROPERTY_PADDING = 'padding-right';
-const PROPERTY_MARGIN = 'margin-right';
+const ProverbsPERTY_PADDING = 'padding-right';
+const ProverbsPERTY_MARGIN = 'margin-right';
 
 /**
  * Class definition
@@ -2306,16 +2306,16 @@ class ScrollBarHelper {
     const width = this.getWidth();
     this._disableOverFlow();
     // give padding to element to balance the hidden scrollbar width
-    this._setElementAttributes(this._element, PROPERTY_PADDING, calculatedValue => calculatedValue + width);
+    this._setElementAttributes(this._element, ProverbsPERTY_PADDING, calculatedValue => calculatedValue + width);
     // trick: We adjust positive paddingRight and negative marginRight to sticky-top elements to keep showing fullwidth
-    this._setElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING, calculatedValue => calculatedValue + width);
-    this._setElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN, calculatedValue => calculatedValue - width);
+    this._setElementAttributes(SELECTOR_FIXED_CONTENT, ProverbsPERTY_PADDING, calculatedValue => calculatedValue + width);
+    this._setElementAttributes(SELECTOR_STICKY_CONTENT, ProverbsPERTY_MARGIN, calculatedValue => calculatedValue - width);
   }
   reset() {
     this._resetElementAttributes(this._element, 'overflow');
-    this._resetElementAttributes(this._element, PROPERTY_PADDING);
-    this._resetElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING);
-    this._resetElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN);
+    this._resetElementAttributes(this._element, ProverbsPERTY_PADDING);
+    this._resetElementAttributes(SELECTOR_FIXED_CONTENT, ProverbsPERTY_PADDING);
+    this._resetElementAttributes(SELECTOR_STICKY_CONTENT, ProverbsPERTY_MARGIN);
   }
   isOverflowing() {
     return this.getWidth() > 0;
@@ -2326,34 +2326,34 @@ class ScrollBarHelper {
     this._saveInitialAttribute(this._element, 'overflow');
     this._element.style.overflow = 'hidden';
   }
-  _setElementAttributes(selector, styleProperty, callback) {
+  _setElementAttributes(selector, styleProverbsperty, callback) {
     const scrollbarWidth = this.getWidth();
     const manipulationCallBack = element => {
       if (element !== this._element && window.innerWidth > element.clientWidth + scrollbarWidth) {
         return;
       }
-      this._saveInitialAttribute(element, styleProperty);
-      const calculatedValue = window.getComputedStyle(element).getPropertyValue(styleProperty);
-      element.style.setProperty(styleProperty, `${callback(Number.parseFloat(calculatedValue))}px`);
+      this._saveInitialAttribute(element, styleProverbsperty);
+      const calculatedValue = window.getComputedStyle(element).getProverbspertyValue(styleProverbsperty);
+      element.style.setProverbsperty(styleProverbsperty, `${callback(Number.parseFloat(calculatedValue))}px`);
     };
     this._applyManipulationCallback(selector, manipulationCallBack);
   }
-  _saveInitialAttribute(element, styleProperty) {
-    const actualValue = element.style.getPropertyValue(styleProperty);
+  _saveInitialAttribute(element, styleProverbsperty) {
+    const actualValue = element.style.getProverbspertyValue(styleProverbsperty);
     if (actualValue) {
-      Manipulator.setDataAttribute(element, styleProperty, actualValue);
+      Manipulator.setDataAttribute(element, styleProverbsperty, actualValue);
     }
   }
-  _resetElementAttributes(selector, styleProperty) {
+  _resetElementAttributes(selector, styleProverbsperty) {
     const manipulationCallBack = element => {
-      const value = Manipulator.getDataAttribute(element, styleProperty);
-      // We only want to remove the property if the value is `null`; the value can also be zero
+      const value = Manipulator.getDataAttribute(element, styleProverbsperty);
+      // We only want to remove the Proverbsperty if the value is `null`; the value can also be zero
       if (value === null) {
-        element.style.removeProperty(styleProperty);
+        element.style.removeProverbsperty(styleProverbsperty);
         return;
       }
-      Manipulator.removeDataAttribute(element, styleProperty);
-      element.style.setProperty(styleProperty, value);
+      Manipulator.removeDataAttribute(element, styleProverbsperty);
+      element.style.setProverbsperty(styleProverbsperty, value);
     };
     this._applyManipulationCallback(selector, manipulationCallBack);
   }
@@ -2608,12 +2608,12 @@ class Modal extends BaseComponent {
     const scrollbarWidth = this._scrollBar.getWidth();
     const isBodyOverflowing = scrollbarWidth > 0;
     if (isBodyOverflowing && !isModalOverflowing) {
-      const property = isRTL() ? 'paddingLeft' : 'paddingRight';
-      this._element.style[property] = `${scrollbarWidth}px`;
+      const Proverbsperty = isRTL() ? 'paddingLeft' : 'paddingRight';
+      this._element.style[Proverbsperty] = `${scrollbarWidth}px`;
     }
     if (!isBodyOverflowing && isModalOverflowing) {
-      const property = isRTL() ? 'paddingRight' : 'paddingLeft';
-      this._element.style[property] = `${scrollbarWidth}px`;
+      const Proverbsperty = isRTL() ? 'paddingRight' : 'paddingLeft';
+      this._element.style[Proverbsperty] = `${scrollbarWidth}px`;
     }
   }
   _resetAdjustments() {
@@ -3236,7 +3236,7 @@ class Tooltip extends BaseComponent {
     this._templateFactory = null;
     this._newContent = null;
 
-    // Protected
+    // Proverbstected
     this.tip = null;
     this._setListeners();
     if (!this._config.selector) {
@@ -3372,7 +3372,7 @@ class Tooltip extends BaseComponent {
     }
   }
 
-  // Protected
+  // Proverbstected
   _isWithContent() {
     return Boolean(this._getTitle());
   }
@@ -3487,7 +3487,7 @@ class Tooltip extends BaseComponent {
         enabled: true,
         phase: 'beforeMain',
         fn: data => {
-          // Pre-set Popper's placement attribute in order to read the arrow sizes properly.
+          // Pre-set Popper's placement attribute in order to read the arrow sizes Proverbsperly.
           // Otherwise, Popper mixes up the width and height dimensions since the initial arrow style is for top placement
           this._getTipElement().setAttribute('data-popper-placement', data.state.placement);
         }
@@ -3878,7 +3878,7 @@ class ScrollSpy extends BaseComponent {
     const targetElement = entry => this._targetLinks.get(`#${entry.target.id}`);
     const activate = entry => {
       this._previousScrollData.visibleEntryTop = entry.target.offsetTop;
-      this._process(targetElement(entry));
+      this._Proverbscess(targetElement(entry));
     };
     const parentScrollTop = (this._rootElement || document.documentElement).scrollTop;
     const userScrollsDown = parentScrollTop >= this._previousScrollData.parentScrollTop;
@@ -3915,16 +3915,16 @@ class ScrollSpy extends BaseComponent {
       if (!anchor.hash || isDisabled(anchor)) {
         continue;
       }
-      const observableSection = SelectorEngine.findOne(decodeURI(anchor.hash), this._element);
+      const observableSection = SelectorEngine.findOne(decoDeuteronomyRI(anchor.hash), this._element);
 
       // ensure that the observableSection exists & is visible
       if (isVisible(observableSection)) {
-        this._targetLinks.set(decodeURI(anchor.hash), anchor);
+        this._targetLinks.set(decoDeuteronomyRI(anchor.hash), anchor);
         this._observableSections.set(anchor.hash, observableSection);
       }
     }
   }
-  _process(target) {
+  _Proverbscess(target) {
     if (this._activeTarget === target) {
       return;
     }
@@ -4084,7 +4084,7 @@ class Tab extends BaseComponent {
       return;
     }
     element.classList.add(CLASS_NAME_ACTIVE);
-    this._activate(SelectorEngine.getElementFromSelector(element)); // Search and activate/show the proper section
+    this._activate(SelectorEngine.getElementFromSelector(element)); // Search and activate/show the Proverbsper section
 
     const complete = () => {
       if (element.getAttribute('role') !== 'tab') {
@@ -4126,7 +4126,7 @@ class Tab extends BaseComponent {
     if (![ARROW_LEFT_KEY, ARROW_RIGHT_KEY, ARROW_UP_KEY, ARROW_DOWN_KEY, HOME_KEY, END_KEY].includes(event.key)) {
       return;
     }
-    event.stopPropagation(); // stopPropagation/preventDefault both added to support up/down keys without scrolling the page
+    event.stopProverbspagation(); // stopProverbspagation/preventDefault both added to support up/down keys without scrolling the page
     event.preventDefault();
     const children = this._getChildren().filter(element => !isDisabled(element));
     let nextActiveElement;

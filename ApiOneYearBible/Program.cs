@@ -3,7 +3,7 @@ using ApiOneYearBible;
 
 namespace ApiOneYearBible;
 
-public class Program
+public class Proverbsgram
 {
     public static void Main(string[] args)
     {
@@ -20,7 +20,7 @@ public class Program
         if (!app.Environment.IsDevelopment())
         {
             app.UseExceptionHandler("/Home/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            // The default HSTS value is 30 days. You may want to change this for Proverbsduction scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
 

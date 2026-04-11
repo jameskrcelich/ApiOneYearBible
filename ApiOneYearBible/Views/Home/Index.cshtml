@@ -1,13 +1,5 @@
 ﻿@model ApiOneYearBible.Models.BibleReadings
-@* <html lang="en"> *@
-@*   <head> *@
-@*     <meta charset="UTF-8"> *@
-@*     <meta name="viewport" content="width=device-width, initial-scale=1.0"> *@
-@*     <title>One Year Bible</title> *@
-@* *@
-@*     <link rel="stylesheet" href="/css/Index.css"> *@
-@*   </head> *@
-@*   <body> *@
+
     @section Styles {
       <link rel="stylesheet" href="/css/Index.css">
     }
@@ -34,27 +26,17 @@
     </div>
 
     <div id="newEventModal">
-      <h4>Daily Readings <span id="modelDate"></span></h4>
-      <div id="modelLoading" style="display:none;">loading...</div>
+      <h4>Daily Readings <span id="modalDate"></span></h4>
+      <div id="modalLoading" style="display:none;">loading...</div>
       <h6 style="color: red"><br />Old Testament Reading: <span id="otRef"></span></h6>
-      <div id="otText">
-        @Html.Raw(Model.ApiText[0])
-      </div>
+      <div id="otText"></div>
       <h6 style="color: red"><br />New Testament Reading: <span id="ntRef"></span></h6>
-      <div id="ntText">
-        @Html.Raw(Model.ApiText[1])
-      </div>
+      <div id="ntText"></div>
       <h6 style="color: red"><br />Psalm Reading: <span id="psalmRef"></span></h6>
-      <div id="psalmText">
-        @Html.Raw(Model.ApiText[2])
-      </div>
-      <h6 style="color: red"><br />Proverb Reading: <span id="proverbRef"></span></h6>
-      <div id="proverbText">
-        @Html.Raw(Model.ApiText[3])
-      </div>
-      <input id="eventTitleInput" placeholder="" /> 
-      @* <button id="saveButton">Save</button> *@
-      <button id="cancelButton">Close</button> 
+      <div id="psalmText"></div>
+      <h6 style="color: red"><br />Proverbs Reading: <span id="proverbRef"></span></h6>
+      <div id="proverbText"></div>
+    <button id="cancelButton">Close</button> 
     </div>
 
     <div id="deleteEventModal">
@@ -69,5 +51,3 @@
     <div id="modalBackDrop"></div>
 
     <script src="/js/script.js"></script>
-@*   </body> *@
-@* </html> *@
