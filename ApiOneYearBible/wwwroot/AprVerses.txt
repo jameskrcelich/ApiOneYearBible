@@ -7,7 +7,7 @@
 04-07;Deuteronomy+31:1-32:27;Luke+12:8-34;Psalm+78:32-55;Proverbs+12:21-23
 04-08;Deuteronomy+32:28-52;Luke+12:35-59;Psalm+78:56-64;Proverbs+12:24
 04-09;Deuteronomy+33:1-29;Luke+13:1-21;Psalm+78:65-72;Proverbs+12:25
-04-10;Deuteronomy+34:1-12,Joshua+1:1-2:24;Luke+13:22-14:6;Psalm+79:1-13;Proverbs+12:26
+04-10;Deuteronomy+34:1-12+Joshua+1:1-2:24;Luke+13:22-14:6;Psalm+79:1-13;Proverbs+12:26
 04-11;Joshua+3:1-4:24;Luke+14:7-35;Psalm+80:1-19;Proverbs+12:27-28
 04-12;Joshua+5:1-7:15;Luke+15:1-32;Psalm+81:1-16;Proverbs+13:1
 04-13;Joshua+7:16-9:2;Luke+16:1-18;Psalm+82:1-8;Proverbs+13:2-3

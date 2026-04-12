@@ -1,6 +1,6 @@
-10-01;Isaiah+62:6-65:25;Philippians:19-3:4;Psalm+73:1-28;Proverbs+24:13-14
-10-02;Isaiah+66:1-24;Philippians3:4-21;Psalm+74:1-23;Proverbs+24:15-16
-10-03;Jeremiah+1:1-2:30;Philippians4:1-23;Psalm+75:1-10;Proverbs+24:17-20
+10-01;Isaiah+62:6-65:25;Philippians+2:19-3:4;Psalm+73:1-28;Proverbs+24:13-14
+10-02;Isaiah+66:1-24;Philippians+3:4-21;Psalm+74:1-23;Proverbs+24:15-16
+10-03;Jeremiah+1:1-2:30;Philippians+4:1-23;Psalm+75:1-10;Proverbs+24:17-20
 10-04;Jeremiah+2:31-4:18;Colossians+1:1-20;Psalm+76:1-12;Proverbs+24:21-22
 10-05;Jeremiah+4:19-6:14;Colossians+1:21-2:7;Psalm+77:1-20;Proverbs+24:23-25
 10-06;Jeremiah+6:15-8:7;Colossians+2:8-23;Psalm+78:1-31;Proverbs+24:26

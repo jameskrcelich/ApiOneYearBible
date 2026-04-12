@@ -47,17 +47,17 @@ public class BibleReadingsRepository : IBibleReadingsRepository
        
         for (var i = 1; i <= 4; i++)
         {
-            // A reading may contain multiple comma-separated passages (e.g. "Deuteronomy2:1-37,Deuteronomy3:1-29")
-            // bible-api.com does not support cross-passage commas, so fetch each one separately
+            // A reading may cross books. In these cases, the different books are fetched separately,
+            // and separated by a comma.
             string[] passages = readings[i].Split(',');
             var textParts = new List<string>();
             
             foreach (string passage in passages)
             {
-                //string url = $"https://bible-api.com/{passage.Trim()}?translation=asv";
-                //string url = $"https://labs.bible.org/api/?passage=Gen+50:26+Exo:1:1-5";
+                // comment that follows shows a fetch crossing books... one of the hardest examples
+                // string url = $"https://labs.bible.org/api/?passage=Gen+50:1-26+Exo:1:1-2:10";
                 
-                //Deuteronomy28+1-68;Luke11+14-36;Psalm77+1-20;Pro12+18 */
+                // Deuteronomy28+1-68;Luke11+14-36;Psalm77+1-20;Pro12+18
                 string url = $"https://labs.bible.org/api/?passage={passage}&formatting=full";
                 
                 try
@@ -66,7 +66,7 @@ public class BibleReadingsRepository : IBibleReadingsRepository
                     
                     textParts.Add(bibleApiResponse);
                   
-                    Console.WriteLine(bibleApiResponse);
+                    // Console.WriteLine(bibleApiResponse); for debugging purposes
                 }
                 catch (HttpRequestException e)
                 {
@@ -75,13 +75,7 @@ public class BibleReadingsRepository : IBibleReadingsRepository
             }
             repo.ApiText[i - 1] = string.Join(" ", textParts);
         }
-        
-        // Print all the daily readings.
-        /* Console.WriteLine($"{readings[1]}, {repo.ApiText[0]}");
-        Console.WriteLine($"{readings[2]}, {repo.ApiText[1]}");
-        Console.WriteLine($"{readings[3]}, {repo.ApiText[2]}");
-        Console.WriteLine($"{readings[4]}, {repo.ApiText[3]}"); */
-        
         return repo;
     }
-}
+    
+} // End BibleReadingsRepository class

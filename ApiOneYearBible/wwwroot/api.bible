@@ -1,7 +1,0 @@
-string url = $"https://rest.api.bible/v1/bibles/de4e12af7f28f599-01";
-client.DefaultRequestHeaders.Add("api-key", apiKey);
-HttpResponseMessage bibleApiResponse = await client.GetAsync(url);
-bibleApiResponse.EnsureSuccessStatusCode();
-string responseBody = await bibleApiResponse.Content.ReadAsStringAsync();
-
-JObject data = JsonConvert.DeserializeObject<JObject>(responseBody);

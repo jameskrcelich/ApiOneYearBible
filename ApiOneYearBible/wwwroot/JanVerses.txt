@@ -22,7 +22,7 @@
 01-22;Genesis+44:1-45:28;Matthew+14:13-36;Psalm+18:37-50;Proverbs+4:11-13
 01-23;Genesis+46:1-47:31;Matthew+15:1-28;Psalm+19:1-14;Proverbs+4:14-19
 01-24;Genesis+48:1-49:33;Matthew+15:29-16:12;Psalm+20:1-9;Proverbs+4:20-27
-01-25;Genesis+50:1-26,Exodus+1:1-2:10;Matthew+16:13-17:9;Psalm+21:1-13;Proverbs+5:1-6
+01-25;Genesis+50:1-26+Exodus+1:1-2:10;Matthew+16:13-17:9;Psalm+21:1-13;Proverbs+5:1-6
 01-26;Exodus+2:11-3:22;Matthew+17:10-27;Psalm+22:1-18;Proverbs+5:7-14
 01-27;Exodus+4:1-5:21;Matthew+18:1-22;Psalm+22:19-31;Proverbs+5:15-21
 01-28;Exodus+5:22-7:24;Matthew+18:23-19:12;Psalm+23:1-6;Proverbs+5:22-23

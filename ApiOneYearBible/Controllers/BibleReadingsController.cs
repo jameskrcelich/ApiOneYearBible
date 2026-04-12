@@ -8,17 +8,5 @@ namespace ApiOneYearBible.Controllers;
 
 public class BibleReadingsController : Controller
 {
-    
-
-    
-    
     // GET
-    
-    
-    /* public IActionResult ViewBibleReadings(int id)
-    {
-        var bibleReadings = repo.GetAllBibleReadings();
-        return View(bibleReadings);
-    } */
-    
 }
