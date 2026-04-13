@@ -26,9 +26,6 @@ public class BibleReadingsRepository : IBibleReadingsRepository
 
     public async Task<BibleReadings> GetAllBibleReadings(DateOnly date)
     {
-        // getting the day of year will help index for that day's readings
-        //DateOnly today = DateOnly.FromDateTime(DateTime.Now);
-
         // get the day of the current year
         string monthPrefix = MonthFilePrefix[date.Month];
        
@@ -40,41 +37,37 @@ public class BibleReadingsRepository : IBibleReadingsRepository
         string[] readings = line.Split(';');
 
         repo.monthDay = readings[0];
-        repo.OldTestamentVerses = readings[1];
-        repo.NewTestamentVerses = readings[2];
-        repo.PsalmVerses   = readings[3];
-        repo.ProverbVerses = readings[4];
+        
+        repo.OldTestamentVerses = readings[1].Replace('+', ' ');
+        repo.NewTestamentVerses = readings[2].Replace('+', ' ');
+        repo.PsalmVerses   = readings[3].Replace('+', ' ');
+        repo.ProverbVerses = readings[4].Replace('+', ' ');
        
         for (var i = 1; i <= 4; i++)
         {
-            // A reading may cross books. In these cases, the different books are fetched separately,
-            // and separated by a comma.
-            string[] passages = readings[i].Split(',');
-            var textParts = new List<string>();
-            
-            foreach (string passage in passages)
+            // comment that follows shows a fetch crossing books... one of the hardest examples,
+            // which is slightly different than the other calls:
+            //
+            // string url = $"https://labs.bible.org/api/?passage=Gen+50:1-26+Exo:1:1-2:10";
+                
+            // Example from file: Deuteronomy+28:1-68;Luke+11:14-36;Psalm+77:1-20;Proverbs+12:18
+            string url = $"https://labs.bible.org/api/?passage={readings[i]}&formatting=full";
+                
+            try
             {
-                // comment that follows shows a fetch crossing books... one of the hardest examples
-                // string url = $"https://labs.bible.org/api/?passage=Gen+50:1-26+Exo:1:1-2:10";
-                
-                // Deuteronomy28+1-68;Luke11+14-36;Psalm77+1-20;Pro12+18
-                string url = $"https://labs.bible.org/api/?passage={passage}&formatting=full";
-                
-                try
-                {
-                    string bibleApiResponse = await client.GetStringAsync(url);
+                // Await the response from bible.org server
+                string bibleApiResponse = await client.GetStringAsync(url);
                     
-                    textParts.Add(bibleApiResponse);
-                  
-                    // Console.WriteLine(bibleApiResponse); for debugging purposes
-                }
-                catch (HttpRequestException e)
-                {
-                    Console.WriteLine($"Error fetching [{url}]: {e.Message}");
-                }
+                // Console.WriteLine(bibleApiResponse); for debugging purposes
+                
+                repo.ApiText[i-1] = bibleApiResponse;
             }
-            repo.ApiText[i - 1] = string.Join(" ", textParts);
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine($"Error fetching [{url}]: {e.Message}");
+            }
         }
+        
         return repo;
     }
     
