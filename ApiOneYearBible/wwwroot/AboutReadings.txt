@@ -1,0 +1,30 @@
+<div>
+<p>
+The readings are accessed by clicking a calendar date. If you want to start on
+January 1st, navigate with the back/next buttons to that date.
+</p>
+<p>
+The old testament comprises about 75% of the Christian bible. So, readings from there
+will take up the most time. If you want, you can maybe read the old testament readings
+one year, and read the new testament readings along with the psalm and proverbs readings
+another year. Alternatively, another strategy could be to the read the new testament
+readings in the morning, and read the old testament readings in the evening.
+</p>
+<p>
+Why are Psalm readings separate from the old testament readings, and why are they important?
+There are 150 Psalms in the old testament. Therefore, you'll be reading them twice in a year;
+one per day. King David, the one who defeated Goliath, is credited with writing 73 or 75 of
+the 150 Psalms in the Book of Psalms. His psalms are often songs of praise, prayers for help,
+and expressions of repentance. In short, they can show us how to communicate with God. Psalm
+23 is probably the most widely known. My mom would say that Psalms 27, 34 and 37 are gold mine
+chapters.
+</p>
+<p>
+Why are Proverbs readings separate from the old testament readings, and why are they important?
+The daily readings only comprise a few verses each day perhaps so one can perhaps ruminate on
+its teaching. They offer advice to make life run more smoothly navigating complex situations with
+divine insight. The Proverbs also offer moral instruction, relationship management, understanding
+God, and correction and growth. In short, they can serve as a poetic roadmap for righteous living,
+teaching that true success comes from following God's wisdom.
+</p>
+</div>

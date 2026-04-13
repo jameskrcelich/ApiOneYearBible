@@ -19,9 +19,4 @@ public class BibleReadings
     public string[] ApiText { get; set; } = new string[4];
     
     public string monthDay { get; set; }
-    
-    /*public BibleReadings()
-    {
-        
-    } */
 }

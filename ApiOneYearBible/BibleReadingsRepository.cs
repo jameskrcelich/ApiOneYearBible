@@ -38,6 +38,7 @@ public class BibleReadingsRepository : IBibleReadingsRepository
 
         repo.monthDay = readings[0];
         
+        // Get rid of the + signs the server requires so they don't print to the user later on
         repo.OldTestamentVerses = readings[1].Replace('+', ' ');
         repo.NewTestamentVerses = readings[2].Replace('+', ' ');
         repo.PsalmVerses   = readings[3].Replace('+', ' ');
@@ -46,7 +47,7 @@ public class BibleReadingsRepository : IBibleReadingsRepository
         for (var i = 1; i <= 4; i++)
         {
             // comment that follows shows a fetch crossing books... one of the hardest examples,
-            // which is slightly different than the other calls:
+            // which is slightly different (+ before the 2nd book) than the other calls:
             //
             // string url = $"https://labs.bible.org/api/?passage=Gen+50:1-26+Exo:1:1-2:10";
                 
@@ -67,8 +68,8 @@ public class BibleReadingsRepository : IBibleReadingsRepository
                 Console.WriteLine($"Error fetching [{url}]: {e.Message}");
             }
         }
-        
         return repo;
-    }
+        
+    } // End - GetAllBibleReadings()
     
-} // End BibleReadingsRepository class
+} // End - BibleReadingsRepository class

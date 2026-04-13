@@ -23,7 +23,6 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> GetReadings(DateOnly date)
     {
-        Console.WriteLine($"GetReadings received date {date}");
         var bibleReadings = await _repo.GetAllBibleReadings(date);
         
         return Json(bibleReadings);
