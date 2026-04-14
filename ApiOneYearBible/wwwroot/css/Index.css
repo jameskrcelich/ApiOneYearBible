@@ -22,12 +22,17 @@ button {
   font-family: sans-serif;
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 }
 #header button {
   background-color:#92a1d1;
+  font-size: 14px;
+  padding: 5px 10px;
+  align-self: center;
 }
 #container {
   width: 770px;
+  margin: 0 auto;
 }
 #weekdays {
   width: 100%;
@@ -37,6 +42,8 @@ button {
 #weekdays div {
   width: 100px;
   padding: 10px;
+  box-sizing: border-box;
+  margin: 5px;
 }
 #calendar {
   width: 100%;
