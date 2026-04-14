@@ -120,7 +120,7 @@ function closeModal() {
   newEventModal.style.display = 'none';
   deleteEventModal.style.display = 'none';
   backDrop.style.display = 'none';
-  eventTitleInput.value = '';
+  // eventTitleInput.value = '';
   clicked = null;
   load();
 }
