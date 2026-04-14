@@ -69,7 +69,7 @@
   const TRANSITION_END = 'transitionend';
 
   /**
-   * Proverbsperly escape IDs selectors to handle weird IDs
+   * Properly escape IDs selectors to handle weird IDs
    * @param {string} selector
    * @returns {string}
    */
@@ -86,7 +86,7 @@
     if (object === null || object === undefined) {
       return `${object}`;
     }
-    return Object.Proverbstotype.toString.call(object).match(/\s([a-z]+)/i)[1].toLowerCase();
+    return Object.prototype.toString.call(object).match(/\s([a-z]+)/i)[1].toLowerCase();
   };
 
   /**
@@ -148,7 +148,7 @@
     if (!isElement$1(element) || element.getClientRects().length === 0) {
       return false;
     }
-    const elementIsVisible = getComputedStyle(element).getProverbspertyValue('visibility') === 'visible';
+    const elementIsVisible = getComputedStyle(element).getPropertyValue('visibility') === 'visible';
     // Handle `details` element as its content may falsie appear visible when it is closed
     const closedDetails = element.closest('details:not([open])');
     if (!closedDetails) {
@@ -285,7 +285,7 @@
    * @param activeElement   The active element
    * @param shouldGetNext   Choose to get next or previous element
    * @param isCycleAllowed
-   * @return {Element|elem} The Proverbsper element
+   * @return {Element|elem} The proper element
    */
   const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed) => {
     const listLength = list.length;
@@ -489,8 +489,8 @@
       if (inNamespace && $) {
         jQueryEvent = $.Event(event, args);
         $(element).trigger(jQueryEvent);
-        bubbles = !jQueryEvent.isProverbspagationStopped();
-        nativeDispatch = !jQueryEvent.isImmediateProverbspagationStopped();
+        bubbles = !jQueryEvent.isPropagationStopped();
+        nativeDispatch = !jQueryEvent.isImmediatePropagationStopped();
         defaultPrevented = jQueryEvent.isDefaultPrevented();
       }
       const evt = hydrateObj(new Event(event, {
@@ -514,7 +514,7 @@
       try {
         obj[key] = value;
       } catch (_unused) {
-        Object.defineProverbsperty(obj, key, {
+        Object.defineProperty(obj, key, {
           configurable: true,
           get() {
             return value;
@@ -549,7 +549,7 @@
       return value;
     }
     try {
-      return JSON.parse(decoDeuteronomyRIComponent(value));
+      return JSON.parse(decodeURIComponent(value));
     } catch (_unused) {
       return value;
     }
@@ -625,11 +625,11 @@
       };
     }
     _typeCheckConfig(config, configTypes = this.constructor.DefaultType) {
-      for (const [Proverbsperty, expectedTypes] of Object.entries(configTypes)) {
-        const value = config[Proverbsperty];
+      for (const [property, expectedTypes] of Object.entries(configTypes)) {
+        const value = config[property];
         const valueType = isElement$1(value) ? 'element' : toType(value);
         if (!new RegExp(expectedTypes).test(valueType)) {
-          throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${Proverbsperty}" Proverbsvided type "${valueType}" but expected type "${expectedTypes}".`);
+          throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`);
         }
       }
     }
@@ -669,8 +669,8 @@
     dispose() {
       Data.remove(this._element, this.constructor.DATA_KEY);
       EventHandler.off(this._element, this.constructor.EVENT_KEY);
-      for (const ProverbspertyName of Object.getOwnProverbspertyNames(this)) {
-        this[ProverbspertyName] = null;
+      for (const propertyName of Object.getOwnPropertyNames(this)) {
+        this[propertyName] = null;
       }
     }
     _queueCallback(callback, element, isAnimated = true) {
@@ -734,10 +734,10 @@
   };
   const SelectorEngine = {
     find(selector, element = document.documentElement) {
-      return [].concat(...Element.Proverbstotype.querySelectorAll.call(element, selector));
+      return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
     },
     findOne(selector, element = document.documentElement) {
-      return Element.Proverbstotype.querySelector.call(element, selector);
+      return Element.prototype.querySelector.call(element, selector);
     },
     children(element, selector) {
       return [].concat(...element.children).filter(child => child.matches(selector));
@@ -1764,7 +1764,7 @@
 
       if (!isHTMLElement(element) || !getNodeName(element)) {
         return;
-      } // Flow doesn't support to extend this Proverbsperty, but it's the most
+      } // Flow doesn't support to extend this property, but it's the most
       // effective way to apply styles to an HTMLElement
       // $FlowFixMe[cannot-write]
 
@@ -1807,10 +1807,10 @@
       Object.keys(state.elements).forEach(function (name) {
         var element = state.elements[name];
         var attributes = state.attributes[name] || {};
-        var styleProverbsperties = Object.keys(state.styles.hasOwnProverbsperty(name) ? state.styles[name] : initialStyles[name]); // Set all values to an empty string to unset them
+        var styleProperties = Object.keys(state.styles.hasOwnProperty(name) ? state.styles[name] : initialStyles[name]); // Set all values to an empty string to unset them
 
-        var style = styleProverbsperties.reduce(function (style, Proverbsperty) {
-          style[Proverbsperty] = '';
+        var style = styleProperties.reduce(function (style, property) {
+          style[property] = '';
           return style;
         }, {}); // arrow is optional + virtual elements
 
@@ -1935,7 +1935,7 @@
         do {
           if (next && parent.isSameNode(next)) {
             return true;
-          } // $FlowFixMe[Proverbsp-missing]: need a better way to handle this...
+          } // $FlowFixMe[prop-missing]: need a better way to handle this...
 
 
           next = next.parentNode || next.host;
@@ -1956,7 +1956,7 @@
 
   function getDocumentElement(element) {
     // $FlowFixMe[incompatible-return]: assume body is always available
-    return ((isElement(element) ? element.ownerDocument : // $FlowFixMe[Proverbsp-missing]
+    return ((isElement(element) ? element.ownerDocument : // $FlowFixMe[prop-missing]
     element.document) || window.document).documentElement;
   }
 
@@ -1967,7 +1967,7 @@
 
     return (// this is a quicker (but less type safe) way to save quite some bytes from the bundle
       // $FlowFixMe[incompatible-return]
-      // $FlowFixMe[Proverbsp-missing]
+      // $FlowFixMe[prop-missing]
       element.assignedSlot || // step into the shadow DOM of the parent of a slotted node
       element.parentNode || ( // DOM Element detected
       isShadowRoot(element) ? element.host : null) || // ShadowRoot detected
@@ -2008,7 +2008,7 @@
     }
 
     while (isHTMLElement(currentNode) && ['html', 'body'].indexOf(getNodeName(currentNode)) < 0) {
-      var css = getComputedStyle$1(currentNode); // This is non-exhaustive but covers the most common CSS Proverbsperties that
+      var css = getComputedStyle$1(currentNode); // This is non-exhaustive but covers the most common CSS properties that
       // create a containing block.
       // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
 
@@ -2097,8 +2097,8 @@
 
     var paddingObject = toPaddingObject(options.padding, state);
     var arrowRect = getLayoutRect(arrowElement);
-    var minProverbsp = axis === 'y' ? top : left;
-    var maxProverbsp = axis === 'y' ? bottom : right;
+    var minProp = axis === 'y' ? top : left;
+    var maxProp = axis === 'y' ? bottom : right;
     var endDiff = state.rects.reference[len] + state.rects.reference[axis] - popperOffsets[axis] - state.rects.popper[len];
     var startDiff = popperOffsets[axis] - state.rects.reference[axis];
     var arrowOffsetParent = getOffsetParent(arrowElement);
@@ -2106,13 +2106,13 @@
     var centerToReference = endDiff / 2 - startDiff / 2; // Make sure the arrow doesn't overflow the popper if the center point is
     // outside of the popper bounds
 
-    var min = paddingObject[minProverbsp];
-    var max = clientSize - arrowRect[len] - paddingObject[maxProverbsp];
+    var min = paddingObject[minProp];
+    var max = clientSize - arrowRect[len] - paddingObject[maxProp];
     var center = clientSize / 2 - arrowRect[len] / 2 + centerToReference;
     var offset = within(min, center, max); // Prevents breaking syntax highlighting...
 
-    var axisProverbsp = axis;
-    state.modifiersData[name] = (_state$modifiersData$ = {}, _state$modifiersData$[axisProverbsp] = offset, _state$modifiersData$.centerOffset = offset - center, _state$modifiersData$);
+    var axisProp = axis;
+    state.modifiersData[name] = (_state$modifiersData$ = {}, _state$modifiersData$[axisProp] = offset, _state$modifiersData$.centerOffset = offset - center, _state$modifiersData$);
   }
 
   function effect$1(_ref2) {
@@ -2163,7 +2163,7 @@
     left: 'auto'
   }; // Round the offsets to the nearest suitable subpixel based on the DPR.
   // Zooming can change the DPR, but it seems to report a value that will
-  // cleanly divide the values into the apProverbspriate subpixels.
+  // cleanly divide the values into the appropriate subpixels.
 
   function roundOffsetsByDPR(_ref, win) {
     var x = _ref.x,
@@ -2203,23 +2203,23 @@
 
     x = _ref3.x;
     y = _ref3.y;
-    var hasX = offsets.hasOwnProverbsperty('x');
-    var hasY = offsets.hasOwnProverbsperty('y');
+    var hasX = offsets.hasOwnProperty('x');
+    var hasY = offsets.hasOwnProperty('y');
     var sideX = left;
     var sideY = top;
     var win = window;
 
     if (adaptive) {
       var offsetParent = getOffsetParent(popper);
-      var heightProverbsp = 'clientHeight';
-      var widthProverbsp = 'clientWidth';
+      var heightProp = 'clientHeight';
+      var widthProp = 'clientWidth';
 
       if (offsetParent === getWindow(popper)) {
         offsetParent = getDocumentElement(popper);
 
         if (getComputedStyle$1(offsetParent).position !== 'static' && position === 'absolute') {
-          heightProverbsp = 'scrollHeight';
-          widthProverbsp = 'scrollWidth';
+          heightProp = 'scrollHeight';
+          widthProp = 'scrollWidth';
         }
       } // $FlowFixMe[incompatible-cast]: force type refinement, we compare offsetParent with window above, but Flow doesn't detect it
 
@@ -2228,16 +2228,16 @@
 
       if (placement === top || (placement === left || placement === right) && variation === end) {
         sideY = bottom;
-        var offsetY = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.height : // $FlowFixMe[Proverbsp-missing]
-        offsetParent[heightProverbsp];
+        var offsetY = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.height : // $FlowFixMe[prop-missing]
+        offsetParent[heightProp];
         y -= offsetY - popperRect.height;
         y *= gpuAcceleration ? 1 : -1;
       }
 
       if (placement === left || (placement === top || placement === bottom) && variation === end) {
         sideX = right;
-        var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.width : // $FlowFixMe[Proverbsp-missing]
-        offsetParent[widthProverbsp];
+        var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.width : // $FlowFixMe[prop-missing]
+        offsetParent[widthProp];
         x -= offsetX - popperRect.width;
         x *= gpuAcceleration ? 1 : -1;
       }
@@ -2716,7 +2716,7 @@
 
     if (allowedPlacements.length === 0) {
       allowedPlacements = placements$1;
-    } // $FlowFixMe[incompatible-type]: Flow seems to have Proverbsblems with two array unions...
+    } // $FlowFixMe[incompatible-type]: Flow seems to have problems with two array unions...
 
 
     var overflows = allowedPlacements.reduce(function (acc, placement) {
@@ -2988,7 +2988,7 @@
     var state = _ref.state,
         name = _ref.name;
     // Offsets are the actual position the popper needs to have to be
-    // Proverbsperly positioned near its reference element
+    // properly positioned near its reference element
     // This is the most basic placement, and will be adjusted by
     // the modifiers in the next step
     state.modifiersData[name] = computeOffsets({
@@ -3255,8 +3255,8 @@
     var pending;
     return function () {
       if (!pending) {
-        pending = new Proverbsmise(function (resolve) {
-          Proverbsmise.resolve().then(function () {
+        pending = new Promise(function (resolve) {
+          Promise.resolve().then(function () {
             pending = undefined;
             resolve(fn());
           });
@@ -3337,7 +3337,7 @@
             reference: isElement(reference) ? listScrollParents(reference) : reference.contextElement ? listScrollParents(reference.contextElement) : [],
             popper: listScrollParents(popper)
           }; // Orders the modifiers based on their dependencies and `phase`
-          // Proverbsperties
+          // properties
 
           var orderedModifiers = orderModifiers(mergeByName([].concat(defaultModifiers, state.options.modifiers))); // Strip out disabled modifiers
 
@@ -3359,7 +3359,7 @@
 
           var _state$elements = state.elements,
               reference = _state$elements.reference,
-              popper = _state$elements.popper; // Don't Proverbsceed if `reference` or `popper` are not valid elements
+              popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
           // anymore
 
           if (!areValidElements(reference, popper)) {
@@ -3377,7 +3377,7 @@
           // stale/incorrect
 
           state.reset = false;
-          state.placement = state.options.placement; // On each update cycle, the `modifiersData` Proverbsperty for each modifier
+          state.placement = state.options.placement; // On each update cycle, the `modifiersData` property for each modifier
           // is filled with the initial data specified by the modifier. This means
           // it doesn't persist and is fresh on each update.
           // To ensure persistent data, use `${name}#persistent`
@@ -3412,7 +3412,7 @@
         // Async and optimistically optimized update – it will not be executed if
         // not necessary (debounced to run at most once-per-tick)
         update: debounce(function () {
-          return new Proverbsmise(function (resolve) {
+          return new Promise(function (resolve) {
             instance.forceUpdate();
             resolve(state);
           });
@@ -3481,8 +3481,8 @@
     defaultModifiers: defaultModifiers
   }); // eslint-disable-next-line import/no-unused-modules
 
-  const Popper = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProverbsperty({
-    __Proverbsto__: null,
+  const Popper = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+    __proto__: null,
     afterMain,
     afterRead,
     afterWrite,
@@ -3695,7 +3695,7 @@
       config = super._getConfig(config);
       if (typeof config.reference === 'object' && !isElement$1(config.reference) && typeof config.reference.getBoundingClientRect !== 'function') {
         // Popper virtual elements require a getBoundingClientRect method
-        throw new TypeError(`${NAME$a.toUpperCase()}: Option "reference" Proverbsvided type "object" without a required "getBoundingClientRect" method.`);
+        throw new TypeError(`${NAME$a.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.`);
       }
       return config;
     }
@@ -3732,8 +3732,8 @@
         return PLACEMENT_BOTTOMCENTER;
       }
 
-      // We need to trim the value because custom Proverbsperties can also include spaces
-      const isEnd = getComputedStyle(this._menu).getProverbspertyValue('--bs-position').trim() === 'end';
+      // We need to trim the value because custom properties can also include spaces
+      const isEnd = getComputedStyle(this._menu).getPropertyValue('--bs-position').trim() === 'end';
       if (parentDropdown.classList.contains(CLASS_NAME_DROPUP)) {
         return isEnd ? PLACEMENT_TOPEND : PLACEMENT_TOP;
       }
@@ -3858,14 +3858,14 @@
       const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE$3) ? this : SelectorEngine.prev(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.next(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.findOne(SELECTOR_DATA_TOGGLE$3, event.delegateTarget.parentNode);
       const instance = Dropdown.getOrCreateInstance(getToggleButton);
       if (isUpOrDownEvent) {
-        event.stopProverbspagation();
+        event.stopPropagation();
         instance.show();
         instance._selectMenuItem(event);
         return;
       }
       if (instance._isShown()) {
         // else is escape and we check if it is shown
-        event.stopProverbspagation();
+        event.stopPropagation();
         instance.hide();
         getToggleButton.focus();
       }
@@ -4127,8 +4127,8 @@
 
   const SELECTOR_FIXED_CONTENT = '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top';
   const SELECTOR_STICKY_CONTENT = '.sticky-top';
-  const ProverbsPERTY_PADDING = 'padding-right';
-  const ProverbsPERTY_MARGIN = 'margin-right';
+  const PROPERTY_PADDING = 'padding-right';
+  const PROPERTY_MARGIN = 'margin-right';
 
   /**
    * Class definition
@@ -4149,16 +4149,16 @@
       const width = this.getWidth();
       this._disableOverFlow();
       // give padding to element to balance the hidden scrollbar width
-      this._setElementAttributes(this._element, ProverbsPERTY_PADDING, calculatedValue => calculatedValue + width);
+      this._setElementAttributes(this._element, PROPERTY_PADDING, calculatedValue => calculatedValue + width);
       // trick: We adjust positive paddingRight and negative marginRight to sticky-top elements to keep showing fullwidth
-      this._setElementAttributes(SELECTOR_FIXED_CONTENT, ProverbsPERTY_PADDING, calculatedValue => calculatedValue + width);
-      this._setElementAttributes(SELECTOR_STICKY_CONTENT, ProverbsPERTY_MARGIN, calculatedValue => calculatedValue - width);
+      this._setElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING, calculatedValue => calculatedValue + width);
+      this._setElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN, calculatedValue => calculatedValue - width);
     }
     reset() {
       this._resetElementAttributes(this._element, 'overflow');
-      this._resetElementAttributes(this._element, ProverbsPERTY_PADDING);
-      this._resetElementAttributes(SELECTOR_FIXED_CONTENT, ProverbsPERTY_PADDING);
-      this._resetElementAttributes(SELECTOR_STICKY_CONTENT, ProverbsPERTY_MARGIN);
+      this._resetElementAttributes(this._element, PROPERTY_PADDING);
+      this._resetElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING);
+      this._resetElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN);
     }
     isOverflowing() {
       return this.getWidth() > 0;
@@ -4169,34 +4169,34 @@
       this._saveInitialAttribute(this._element, 'overflow');
       this._element.style.overflow = 'hidden';
     }
-    _setElementAttributes(selector, styleProverbsperty, callback) {
+    _setElementAttributes(selector, styleProperty, callback) {
       const scrollbarWidth = this.getWidth();
       const manipulationCallBack = element => {
         if (element !== this._element && window.innerWidth > element.clientWidth + scrollbarWidth) {
           return;
         }
-        this._saveInitialAttribute(element, styleProverbsperty);
-        const calculatedValue = window.getComputedStyle(element).getProverbspertyValue(styleProverbsperty);
-        element.style.setProverbsperty(styleProverbsperty, `${callback(Number.parseFloat(calculatedValue))}px`);
+        this._saveInitialAttribute(element, styleProperty);
+        const calculatedValue = window.getComputedStyle(element).getPropertyValue(styleProperty);
+        element.style.setProperty(styleProperty, `${callback(Number.parseFloat(calculatedValue))}px`);
       };
       this._applyManipulationCallback(selector, manipulationCallBack);
     }
-    _saveInitialAttribute(element, styleProverbsperty) {
-      const actualValue = element.style.getProverbspertyValue(styleProverbsperty);
+    _saveInitialAttribute(element, styleProperty) {
+      const actualValue = element.style.getPropertyValue(styleProperty);
       if (actualValue) {
-        Manipulator.setDataAttribute(element, styleProverbsperty, actualValue);
+        Manipulator.setDataAttribute(element, styleProperty, actualValue);
       }
     }
-    _resetElementAttributes(selector, styleProverbsperty) {
+    _resetElementAttributes(selector, styleProperty) {
       const manipulationCallBack = element => {
-        const value = Manipulator.getDataAttribute(element, styleProverbsperty);
-        // We only want to remove the Proverbsperty if the value is `null`; the value can also be zero
+        const value = Manipulator.getDataAttribute(element, styleProperty);
+        // We only want to remove the property if the value is `null`; the value can also be zero
         if (value === null) {
-          element.style.removeProverbsperty(styleProverbsperty);
+          element.style.removeProperty(styleProperty);
           return;
         }
-        Manipulator.removeDataAttribute(element, styleProverbsperty);
-        element.style.setProverbsperty(styleProverbsperty, value);
+        Manipulator.removeDataAttribute(element, styleProperty);
+        element.style.setProperty(styleProperty, value);
       };
       this._applyManipulationCallback(selector, manipulationCallBack);
     }
@@ -4451,12 +4451,12 @@
       const scrollbarWidth = this._scrollBar.getWidth();
       const isBodyOverflowing = scrollbarWidth > 0;
       if (isBodyOverflowing && !isModalOverflowing) {
-        const Proverbsperty = isRTL() ? 'paddingLeft' : 'paddingRight';
-        this._element.style[Proverbsperty] = `${scrollbarWidth}px`;
+        const property = isRTL() ? 'paddingLeft' : 'paddingRight';
+        this._element.style[property] = `${scrollbarWidth}px`;
       }
       if (!isBodyOverflowing && isModalOverflowing) {
-        const Proverbsperty = isRTL() ? 'paddingRight' : 'paddingLeft';
-        this._element.style[Proverbsperty] = `${scrollbarWidth}px`;
+        const property = isRTL() ? 'paddingRight' : 'paddingLeft';
+        this._element.style[property] = `${scrollbarWidth}px`;
       }
     }
     _resetAdjustments() {
@@ -5079,7 +5079,7 @@
       this._templateFactory = null;
       this._newContent = null;
 
-      // Proverbstected
+      // Protected
       this.tip = null;
       this._setListeners();
       if (!this._config.selector) {
@@ -5215,7 +5215,7 @@
       }
     }
 
-    // Proverbstected
+    // Protected
     _isWithContent() {
       return Boolean(this._getTitle());
     }
@@ -5330,7 +5330,7 @@
           enabled: true,
           phase: 'beforeMain',
           fn: data => {
-            // Pre-set Popper's placement attribute in order to read the arrow sizes Proverbsperly.
+            // Pre-set Popper's placement attribute in order to read the arrow sizes properly.
             // Otherwise, Popper mixes up the width and height dimensions since the initial arrow style is for top placement
             this._getTipElement().setAttribute('data-popper-placement', data.state.placement);
           }
@@ -5721,7 +5721,7 @@
       const targetElement = entry => this._targetLinks.get(`#${entry.target.id}`);
       const activate = entry => {
         this._previousScrollData.visibleEntryTop = entry.target.offsetTop;
-        this._Proverbscess(targetElement(entry));
+        this._process(targetElement(entry));
       };
       const parentScrollTop = (this._rootElement || document.documentElement).scrollTop;
       const userScrollsDown = parentScrollTop >= this._previousScrollData.parentScrollTop;
@@ -5758,16 +5758,16 @@
         if (!anchor.hash || isDisabled(anchor)) {
           continue;
         }
-        const observableSection = SelectorEngine.findOne(decoDeuteronomyRI(anchor.hash), this._element);
+        const observableSection = SelectorEngine.findOne(decodeURI(anchor.hash), this._element);
 
         // ensure that the observableSection exists & is visible
         if (isVisible(observableSection)) {
-          this._targetLinks.set(decoDeuteronomyRI(anchor.hash), anchor);
+          this._targetLinks.set(decodeURI(anchor.hash), anchor);
           this._observableSections.set(anchor.hash, observableSection);
         }
       }
     }
-    _Proverbscess(target) {
+    _process(target) {
       if (this._activeTarget === target) {
         return;
       }
@@ -5927,7 +5927,7 @@
         return;
       }
       element.classList.add(CLASS_NAME_ACTIVE);
-      this._activate(SelectorEngine.getElementFromSelector(element)); // Search and activate/show the Proverbsper section
+      this._activate(SelectorEngine.getElementFromSelector(element)); // Search and activate/show the proper section
 
       const complete = () => {
         if (element.getAttribute('role') !== 'tab') {
@@ -5969,7 +5969,7 @@
       if (![ARROW_LEFT_KEY, ARROW_RIGHT_KEY, ARROW_UP_KEY, ARROW_DOWN_KEY, HOME_KEY, END_KEY].includes(event.key)) {
         return;
       }
-      event.stopProverbspagation(); // stopProverbspagation/preventDefault both added to support up/down keys without scrolling the page
+      event.stopPropagation(); // stopPropagation/preventDefault both added to support up/down keys without scrolling the page
       event.preventDefault();
       const children = this._getChildren().filter(element => !isDisabled(element));
       let nextActiveElement;

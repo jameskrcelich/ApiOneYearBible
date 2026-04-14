@@ -14,7 +14,7 @@
 
 	if ( typeof module === "object" && typeof module.exports === "object" ) {
 
-		// For CommonJS and CommonJS-like environments where a Proverbsper `window`
+		// For CommonJS and CommonJS-like environments where a proper `window`
 		// is present, execute the factory and get jQuery.
 		// For environments that do not have a `window` with a `document`
 		// (such as Node.js), expose a factory as module.exports.
@@ -44,7 +44,7 @@
 
 var arr = [];
 
-var getProverbsto = Object.getProverbstotypeOf;
+var getProto = Object.getPrototypeOf;
 
 var slice = arr.slice;
 
@@ -63,7 +63,7 @@ var class2type = {};
 
 var toString = class2type.toString;
 
-var hasOwn = class2type.hasOwnProverbsperty;
+var hasOwn = class2type.hasOwnProperty;
 
 var fnToString = hasOwn.toString;
 
@@ -112,7 +112,7 @@ var document = window.document;
 			for ( i in preservedScriptAttributes ) {
 
 				// Support: Firefox 64+, Edge 18+
-				// Some browsers don't support the "nonce" Proverbsperty on scripts.
+				// Some browsers don't support the "nonce" property on scripts.
 				// On the other hand, just using `getAttribute` is not enough as
 				// the `nonce` attribute is reset to an empty string whenever it
 				// becomes browsing-context connected.
@@ -159,7 +159,7 @@ var version = "3.7.1",
 		return new jQuery.fn.init( selector, context );
 	};
 
-jQuery.fn = jQuery.Proverbstotype = {
+jQuery.fn = jQuery.prototype = {
 
 	// The current version of jQuery being used
 	jquery: version,
@@ -288,9 +288,9 @@ jQuery.extend = jQuery.fn.extend = function() {
 			for ( name in options ) {
 				copy = options[ name ];
 
-				// Prevent Object.Proverbstotype pollution
+				// Prevent Object.prototype pollution
 				// Prevent never-ending loop
-				if ( name === "__Proverbsto__" || target === copy ) {
+				if ( name === "__proto__" || target === copy ) {
 					continue;
 				}
 
@@ -299,7 +299,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 					( copyIsArray = Array.isArray( copy ) ) ) ) {
 					src = target[ name ];
 
-					// Ensure Proverbsper type for the source value
+					// Ensure proper type for the source value
 					if ( copyIsArray && !Array.isArray( src ) ) {
 						clone = [];
 					} else if ( !copyIsArray && !jQuery.isPlainObject( src ) ) {
@@ -339,7 +339,7 @@ jQuery.extend( {
 	noop: function() {},
 
 	isPlainObject: function( obj ) {
-		var Proverbsto, Ctor;
+		var proto, Ctor;
 
 		// Detect obvious negatives
 		// Use toString instead of jQuery.type to catch host objects
@@ -347,15 +347,15 @@ jQuery.extend( {
 			return false;
 		}
 
-		Proverbsto = getProverbsto( obj );
+		proto = getProto( obj );
 
-		// Objects with no Proverbstotype (e.g., `Object.create( null )`) are plain
-		if ( !Proverbsto ) {
+		// Objects with no prototype (e.g., `Object.create( null )`) are plain
+		if ( !proto ) {
 			return true;
 		}
 
-		// Objects with Proverbstotype are plain iff they were constructed by a global Object function
-		Ctor = hasOwn.call( Proverbsto, "constructor" ) && Proverbsto.constructor;
+		// Objects with prototype are plain iff they were constructed by a global Object function
+		Ctor = hasOwn.call( proto, "constructor" ) && proto.constructor;
 		return typeof Ctor === "function" && fnToString.call( Ctor ) === ObjectFunctionString;
 	},
 
@@ -368,7 +368,7 @@ jQuery.extend( {
 		return true;
 	},
 
-	// Evaluates a script in a Proverbsvided context; falls back to the global one
+	// Evaluates a script in a provided context; falls back to the global one
 	// if not specified.
 	globalEval: function( code, options, doc ) {
 		DOMEval( code, { nonce: options && options.nonce }, doc );
@@ -422,7 +422,7 @@ jQuery.extend( {
 			return elem.nodeValue;
 		}
 
-		// Do not include comment or Proverbscessing instruction nodes
+		// Do not include comment or processing instruction nodes
 
 		return ret;
 	},
@@ -528,8 +528,8 @@ jQuery.extend( {
 	// A global GUID counter for objects
 	guid: 1,
 
-	// jQuery.support is not used in Core but other Proverbsjects attach their
-	// Proverbsperties to it so it needs to exist.
+	// jQuery.support is not used in Core but other projects attach their
+	// properties to it so it needs to exist.
 	support: support
 } );
 
@@ -545,7 +545,7 @@ jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symb
 
 function isArrayLike( obj ) {
 
-	// Support: real iOS 8.2 only (not reProverbsducible in simulator)
+	// Support: real iOS 8.2 only (not reproducible in simulator)
 	// `in` check used to prevent JIT error (gh-2145)
 	// hasOwn isn't used here due to false negatives
 	// regarding Nodelist length in IE
@@ -942,7 +942,7 @@ function find( selector, context, results, seed ) {
 /**
  * Create key-value caches of limited size
  * @returns {function(string, object)} Returns the Object data after storing it on itself with
- *	Proverbsperty name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)
+ *	property name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)
  *	deleting the oldest entry
  */
 function createCache() {
@@ -950,7 +950,7 @@ function createCache() {
 
 	function cache( key, value ) {
 
-		// Use (key + " ") to avoid collision with native Proverbstotype Proverbsperties
+		// Use (key + " ") to avoid collision with native prototype properties
 		// (see https://github.com/jquery/sizzle/issues/157)
 		if ( keys.push( key + " " ) > Expr.cacheLength ) {
 
@@ -1035,7 +1035,7 @@ function createDisabledPseudo( disabled ) {
 			//   https://html.spec.whatwg.org/multipage/forms.html#concept-fe-disabled
 			// * option elements in a disabled optgroup
 			//   https://html.spec.whatwg.org/multipage/forms.html#concept-option-disabled
-			// All such elements have a "form" Proverbsperty.
+			// All such elements have a "form" property.
 			if ( elem.parentNode && elem.disabled === false ) {
 
 				// Option elements defer to a parent optgroup if present
@@ -1048,7 +1048,7 @@ function createDisabledPseudo( disabled ) {
 				}
 
 				// Support: IE 6 - 11+
-				// Use the isDisabled shortcut Proverbsperty to check for disabled fieldset ancestors
+				// Use the isDisabled shortcut property to check for disabled fieldset ancestors
 				return elem.isDisabled === disabled ||
 
 					// Where there is no isDisabled, check manually
@@ -1058,7 +1058,7 @@ function createDisabledPseudo( disabled ) {
 
 			return elem.disabled === disabled;
 
-		// Try to winnow out elements that can't be disabled before trusting the disabled Proverbsperty.
+		// Try to winnow out elements that can't be disabled before trusting the disabled property.
 		// Some victims get caught in our net (label, legend, menu, track), but it shouldn't
 		// even exist on them, let alone have a boolean value.
 		} else if ( "label" in elem ) {
@@ -1150,7 +1150,7 @@ function setDocument( node ) {
 
 	// Support: IE <10
 	// Check if getElementById returns elements by name
-	// The broken getElementById methods don't pick up Proverbsgrammatically-set names,
+	// The broken getElementById methods don't pick up programmatically-set names,
 	// so use a roundabout getElementsByName test
 	support.getById = assert( function( el ) {
 		documentElement.appendChild( el ).id = jQuery.expando;
@@ -1300,7 +1300,7 @@ function setDocument( node ) {
 
 		// Support: Chrome <=105+, Firefox <=104+, Safari <=15.4+
 		// In some of the document kinds, these selectors wouldn't work natively.
-		// This is Proverbsbably OK but for backwards compatibility we want to maintain
+		// This is probably OK but for backwards compatibility we want to maintain
 		// handling them through jQuery traversal in jQuery 3.x.
 		if ( !el.querySelectorAll( ":checked" ).length ) {
 			rbuggyQSA.push( ":checked" );
@@ -1316,7 +1316,7 @@ function setDocument( node ) {
 		// IE's :disabled selector does not pick up the children of disabled fieldsets
 		// Support: Chrome <=105+, Firefox <=104+, Safari <=15.4+
 		// In some of the document kinds, these selectors wouldn't work natively.
-		// This is Proverbsbably OK but for backwards compatibility we want to maintain
+		// This is probably OK but for backwards compatibility we want to maintain
 		// handling them through jQuery traversal in jQuery 3.x.
 		documentElement.appendChild( el ).disabled = true;
 		if ( el.querySelectorAll( ":disabled" ).length !== 2 ) {
@@ -1471,7 +1471,7 @@ find.attr = function( elem, name ) {
 
 	var fn = Expr.attrHandle[ name.toLowerCase() ],
 
-		// Don't get fooled by Object.Proverbstotype Proverbsperties (see trac-13807)
+		// Don't get fooled by Object.prototype properties (see trac-13807)
 		val = fn && hasOwn.call( Expr.attrHandle, name.toLowerCase() ) ?
 			fn( elem, name, !documentIsHTML ) :
 			undefined;
@@ -1592,7 +1592,7 @@ Expr = jQuery.expr = {
 				);
 				match[ 5 ] = +( ( match[ 7 ] + match[ 8 ] ) || match[ 3 ] === "odd" );
 
-			// other types Proverbshibit arguments
+			// other types prohibit arguments
 			} else if ( match[ 3 ] ) {
 				find.error( match[ 0 ] );
 			}
@@ -1830,7 +1830,7 @@ Expr = jQuery.expr = {
 			// But maintain support for old signatures
 			if ( fn.length > 1 ) {
 				args = [ pseudo, pseudo, "", argument ];
-				return Expr.setFilters.hasOwnProverbsperty( pseudo.toLowerCase() ) ?
+				return Expr.setFilters.hasOwnProperty( pseudo.toLowerCase() ) ?
 					markFunction( function( seed, matches ) {
 						var idx,
 							matched = fn( seed, argument ),
@@ -1943,7 +1943,7 @@ Expr = jQuery.expr = {
 				!!( elem.type || elem.href || ~elem.tabIndex );
 		},
 
-		// Boolean Proverbsperties
+		// Boolean properties
 		enabled: createDisabledPseudo( false ),
 		disabled: createDisabledPseudo( true ),
 
@@ -1958,7 +1958,7 @@ Expr = jQuery.expr = {
 		selected: function( elem ) {
 
 			// Support: IE <=11+
-			// Accessing the selectedIndex Proverbsperty
+			// Accessing the selectedIndex property
 			// forces the browser to treat the default option as
 			// selected when in an optgroup.
 			if ( elem.parentNode ) {
@@ -1974,7 +1974,7 @@ Expr = jQuery.expr = {
 
 			// https://www.w3.org/TR/selectors/#empty-pseudo
 			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
-			//   but not by others (comment: 8; Proverbscessing instruction: 7; etc.)
+			//   but not by others (comment: 8; processing instruction: 7; etc.)
 			// nodeType < 6 works because attributes (2) do not appear as children
 			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
 				if ( elem.nodeType < 6 ) {
@@ -2081,7 +2081,7 @@ for ( i in { submit: true, reset: true } ) {
 
 // Easy API for creating new setFilters
 function setFilters() {}
-setFilters.Proverbstotype = Expr.filters = Expr.pseudos;
+setFilters.prototype = Expr.filters = Expr.pseudos;
 Expr.setFilters = new setFilters();
 
 function tokenize( selector, parseOnly ) {
@@ -2209,11 +2209,11 @@ function addCombinator( matcher, combinator, base ) {
 						} else if ( ( oldCache = outerCache[ key ] ) &&
 							oldCache[ 0 ] === dirruns && oldCache[ 1 ] === doneName ) {
 
-							// Assign to newCache so results back-Proverbspagate to previous elements
+							// Assign to newCache so results back-propagate to previous elements
 							return ( newCache[ 2 ] = oldCache[ 2 ] );
 						} else {
 
-							// Reuse newcache so results back-Proverbspagate to previous elements
+							// Reuse newcache so results back-propagate to previous elements
 							outerCache[ key ] = newCache;
 
 							// A match means we're done; a fail means we have to keep checking
@@ -2301,7 +2301,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 			// or preexisting results,
 			matcherOut = postFinder || ( seed ? preFilter : preexisting || postFilter ) ?
 
-				// ...intermediate Proverbscessing is necessary
+				// ...intermediate processing is necessary
 				[] :
 
 				// ...otherwise use results directly
@@ -2411,7 +2411,7 @@ function matcherFromTokens( tokens ) {
 			// Return special upon seeing a positional matcher
 			if ( matcher[ expando ] ) {
 
-				// Find the next relative operator (if any) for Proverbsper handling
+				// Find the next relative operator (if any) for proper handling
 				j = ++i;
 				for ( ; j < len; j++ ) {
 					if ( Expr.relative[ tokens[ j ].type ] ) {
@@ -2468,7 +2468,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 
 			// Add elements passing elementMatchers directly to results
 			// Support: iOS <=7 - 9 only
-			// Tolerate NodeList Proverbsperties (IE: "length"; Safari: <number>) matching
+			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching
 			// elements by id. (see trac-14142)
 			for ( ; i !== len && ( elem = elems[ i ] ) != null; i++ ) {
 				if ( byElement && elem ) {
@@ -2669,8 +2669,8 @@ function select( selector, context, results, seed ) {
 		}
 	}
 
-	// Compile and execute a filtering function if one is not Proverbsvided
-	// Proverbsvide `match` to avoid retokenization if we modified the selector above
+	// Compile and execute a filtering function if one is not provided
+	// Provide `match` to avoid retokenization if we modified the selector above
 	( compiled || compile( selector, match ) )(
 		seed,
 		context,
@@ -2897,11 +2897,11 @@ var rootjQuery,
 						true
 					) );
 
-					// HANDLE: $(html, Proverbsps)
+					// HANDLE: $(html, props)
 					if ( rsingleTag.test( match[ 1 ] ) && jQuery.isPlainObject( context ) ) {
 						for ( match in context ) {
 
-							// Proverbsperties of context are called as methods if possible
+							// Properties of context are called as methods if possible
 							if ( isFunction( this[ match ] ) ) {
 								this[ match ]( context[ match ] );
 
@@ -2956,8 +2956,8 @@ var rootjQuery,
 		return jQuery.makeArray( selector, this );
 	};
 
-// Give the init function the jQuery Proverbstotype for later instantiation
-init.Proverbstotype = jQuery.fn;
+// Give the init function the jQuery prototype for later instantiation
+init.prototype = jQuery.fn;
 
 // Initialize central reference
 rootjQuery = jQuery( document );
@@ -2965,7 +2965,7 @@ rootjQuery = jQuery( document );
 
 var rparentsprev = /^(?:parents|prev(?:Until|All))/,
 
-	// Methods guaranteed to Proverbsduce a unique set when starting from a unique set
+	// Methods guaranteed to produce a unique set when starting from a unique set
 	guaranteedUnique = {
 		children: true,
 		contents: true,
@@ -3099,8 +3099,8 @@ jQuery.each( {
 
 			// Support: IE 11+
 			// <object> elements with no `data` attribute has an object
-			// `contentDocument` with a `null` Proverbstotype.
-			getProverbsto( elem.contentDocument ) ) {
+			// `contentDocument` with a `null` prototype.
+			getProto( elem.contentDocument ) ) {
 
 			return elem.contentDocument;
 		}
@@ -3384,8 +3384,8 @@ function adoptValue( value, resolve, reject, noValue ) {
 
 	try {
 
-		// Check for Proverbsmise aspect first to privilege synchronous behavior
-		if ( value && isFunction( ( method = value.Proverbsmise ) ) ) {
+		// Check for promise aspect first to privilege synchronous behavior
+		if ( value && isFunction( ( method = value.promise ) ) ) {
 			method.call( value ).done( resolve ).fail( reject );
 
 		// Other thenables
@@ -3401,7 +3401,7 @@ function adoptValue( value, resolve, reject, noValue ) {
 			resolve.apply( undefined, [ value ].slice( noValue ) );
 		}
 
-	// For Proverbsmises/A+, convert exceptions into rejections
+	// For Promises/A+, convert exceptions into rejections
 	// Since jQuery.when doesn't unwrap thenables, we can skip the extra checks appearing in
 	// Deferred#then to conditionally suppress rejection.
 	} catch ( value ) {
@@ -3419,7 +3419,7 @@ jQuery.extend( {
 
 				// action, add listener, callbacks,
 				// ... .then handlers, argument index, [final state]
-				[ "notify", "Proverbsgress", jQuery.Callbacks( "memory" ),
+				[ "notify", "progress", jQuery.Callbacks( "memory" ),
 					jQuery.Callbacks( "memory" ), 2 ],
 				[ "resolve", "done", jQuery.Callbacks( "once memory" ),
 					jQuery.Callbacks( "once memory" ), 0, "resolved" ],
@@ -3427,7 +3427,7 @@ jQuery.extend( {
 					jQuery.Callbacks( "once memory" ), 1, "rejected" ]
 			],
 			state = "pending",
-			Proverbsmise = {
+			promise = {
 				state: function() {
 					return state;
 				},
@@ -3436,27 +3436,27 @@ jQuery.extend( {
 					return this;
 				},
 				"catch": function( fn ) {
-					return Proverbsmise.then( null, fn );
+					return promise.then( null, fn );
 				},
 
 				// Keep pipe for back-compat
-				pipe: function( /* fnDone, fnFail, fnProverbsgress */ ) {
+				pipe: function( /* fnDone, fnFail, fnProgress */ ) {
 					var fns = arguments;
 
 					return jQuery.Deferred( function( newDefer ) {
 						jQuery.each( tuples, function( _i, tuple ) {
 
-							// Map tuples (Proverbsgress, done, fail) to arguments (done, fail, Proverbsgress)
+							// Map tuples (progress, done, fail) to arguments (done, fail, progress)
 							var fn = isFunction( fns[ tuple[ 4 ] ] ) && fns[ tuple[ 4 ] ];
 
-							// deferred.Proverbsgress(function() { bind to newDefer or newDefer.notify })
+							// deferred.progress(function() { bind to newDefer or newDefer.notify })
 							// deferred.done(function() { bind to newDefer or newDefer.resolve })
 							// deferred.fail(function() { bind to newDefer or newDefer.reject })
 							deferred[ tuple[ 1 ] ]( function() {
 								var returned = fn && fn.apply( this, arguments );
-								if ( returned && isFunction( returned.Proverbsmise ) ) {
-									returned.Proverbsmise()
-										.Proverbsgress( newDefer.notify )
+								if ( returned && isFunction( returned.promise ) ) {
+									returned.promise()
+										.progress( newDefer.notify )
 										.done( newDefer.resolve )
 										.fail( newDefer.reject );
 								} else {
@@ -3468,9 +3468,9 @@ jQuery.extend( {
 							} );
 						} );
 						fns = null;
-					} ).Proverbsmise();
+					} ).promise();
 				},
-				then: function( onFulfilled, onRejected, onProverbsgress ) {
+				then: function( onFulfilled, onRejected, onProgress ) {
 					var maxDepth = 0;
 					function resolve( depth, deferred, handler, special ) {
 						return function() {
@@ -3479,8 +3479,8 @@ jQuery.extend( {
 								mightThrow = function() {
 									var returned, then;
 
-									// Support: Proverbsmises/A+ section 2.3.3.3.3
-									// https://Proverbsmisesaplus.com/#point-59
+									// Support: Promises/A+ section 2.3.3.3.3
+									// https://promisesaplus.com/#point-59
 									// Ignore double-resolution attempts
 									if ( depth < maxDepth ) {
 										return;
@@ -3488,20 +3488,20 @@ jQuery.extend( {
 
 									returned = handler.apply( that, args );
 
-									// Support: Proverbsmises/A+ section 2.3.1
-									// https://Proverbsmisesaplus.com/#point-48
-									if ( returned === deferred.Proverbsmise() ) {
+									// Support: Promises/A+ section 2.3.1
+									// https://promisesaplus.com/#point-48
+									if ( returned === deferred.promise() ) {
 										throw new TypeError( "Thenable self-resolution" );
 									}
 
-									// Support: Proverbsmises/A+ sections 2.3.3.1, 3.5
-									// https://Proverbsmisesaplus.com/#point-54
-									// https://Proverbsmisesaplus.com/#point-75
+									// Support: Promises/A+ sections 2.3.3.1, 3.5
+									// https://promisesaplus.com/#point-54
+									// https://promisesaplus.com/#point-75
 									// Retrieve `then` only once
 									then = returned &&
 
-										// Support: Proverbsmises/A+ section 2.3.4
-										// https://Proverbsmisesaplus.com/#point-64
+										// Support: Promises/A+ section 2.3.4
+										// https://promisesaplus.com/#point-64
 										// Only check objects and functions for thenability
 										( typeof returned === "object" ||
 											typeof returned === "function" ) &&
@@ -3510,7 +3510,7 @@ jQuery.extend( {
 									// Handle a returned thenable
 									if ( isFunction( then ) ) {
 
-										// Special Proverbscessors (notify) just wait for resolution
+										// Special processors (notify) just wait for resolution
 										if ( special ) {
 											then.call(
 												returned,
@@ -3518,7 +3518,7 @@ jQuery.extend( {
 												resolve( maxDepth, deferred, Thrower, special )
 											);
 
-										// Normal Proverbscessors (resolve) also hook into Proverbsgress
+										// Normal processors (resolve) also hook into progress
 										} else {
 
 											// ...and disregard older resolution values
@@ -3543,14 +3543,14 @@ jQuery.extend( {
 											args = [ returned ];
 										}
 
-										// Proverbscess the value(s)
-										// Default Proverbscess is resolve
+										// Process the value(s)
+										// Default process is resolve
 										( special || deferred.resolveWith )( that, args );
 									}
 								},
 
-								// Only normal Proverbscessors (resolve) catch and reject exceptions
-								Proverbscess = special ?
+								// Only normal processors (resolve) catch and reject exceptions
+								process = special ?
 									mightThrow :
 									function() {
 										try {
@@ -3559,11 +3559,11 @@ jQuery.extend( {
 
 											if ( jQuery.Deferred.exceptionHook ) {
 												jQuery.Deferred.exceptionHook( e,
-													Proverbscess.error );
+													process.error );
 											}
 
-											// Support: Proverbsmises/A+ section 2.3.3.3.4.1
-											// https://Proverbsmisesaplus.com/#point-61
+											// Support: Promises/A+ section 2.3.3.3.4.1
+											// https://promisesaplus.com/#point-61
 											// Ignore post-resolution exceptions
 											if ( depth + 1 >= maxDepth ) {
 
@@ -3579,40 +3579,40 @@ jQuery.extend( {
 										}
 									};
 
-							// Support: Proverbsmises/A+ section 2.3.3.3.1
-							// https://Proverbsmisesaplus.com/#point-57
-							// Re-resolve Proverbsmises immediately to dodge false rejection from
+							// Support: Promises/A+ section 2.3.3.3.1
+							// https://promisesaplus.com/#point-57
+							// Re-resolve promises immediately to dodge false rejection from
 							// subsequent errors
 							if ( depth ) {
-								Proverbscess();
+								process();
 							} else {
 
 								// Call an optional hook to record the error, in case of exception
 								// since it's otherwise lost when execution goes async
 								if ( jQuery.Deferred.getErrorHook ) {
-									Proverbscess.error = jQuery.Deferred.getErrorHook();
+									process.error = jQuery.Deferred.getErrorHook();
 
 								// The deprecated alias of the above. While the name suggests
 								// returning the stack, not an error instance, jQuery just passes
 								// it directly to `console.warn` so both will work; an instance
 								// just better cooperates with source maps.
 								} else if ( jQuery.Deferred.getStackHook ) {
-									Proverbscess.error = jQuery.Deferred.getStackHook();
+									process.error = jQuery.Deferred.getStackHook();
 								}
-								window.setTimeout( Proverbscess );
+								window.setTimeout( process );
 							}
 						};
 					}
 
 					return jQuery.Deferred( function( newDefer ) {
 
-						// Proverbsgress_handlers.add( ... )
+						// progress_handlers.add( ... )
 						tuples[ 0 ][ 3 ].add(
 							resolve(
 								0,
 								newDefer,
-								isFunction( onProverbsgress ) ?
-									onProverbsgress :
+								isFunction( onProgress ) ?
+									onProgress :
 									Identity,
 								newDefer.notifyWith
 							)
@@ -3639,13 +3639,13 @@ jQuery.extend( {
 									Thrower
 							)
 						);
-					} ).Proverbsmise();
+					} ).promise();
 				},
 
-				// Get a Proverbsmise for this deferred
-				// If obj is Proverbsvided, the Proverbsmise aspect is added to the object
-				Proverbsmise: function( obj ) {
-					return obj != null ? jQuery.extend( obj, Proverbsmise ) : Proverbsmise;
+				// Get a promise for this deferred
+				// If obj is provided, the promise aspect is added to the object
+				promise: function( obj ) {
+					return obj != null ? jQuery.extend( obj, promise ) : promise;
 				}
 			},
 			deferred = {};
@@ -3655,10 +3655,10 @@ jQuery.extend( {
 			var list = tuple[ 2 ],
 				stateString = tuple[ 5 ];
 
-			// Proverbsmise.Proverbsgress = list.add
-			// Proverbsmise.done = list.add
-			// Proverbsmise.fail = list.add
-			Proverbsmise[ tuple[ 1 ] ] = list.add;
+			// promise.progress = list.add
+			// promise.done = list.add
+			// promise.fail = list.add
+			promise[ tuple[ 1 ] ] = list.add;
 
 			// Handle state
 			if ( stateString ) {
@@ -3678,15 +3678,15 @@ jQuery.extend( {
 					// fulfilled_handlers.disable
 					tuples[ 3 - i ][ 3 ].disable,
 
-					// Proverbsgress_callbacks.lock
+					// progress_callbacks.lock
 					tuples[ 0 ][ 2 ].lock,
 
-					// Proverbsgress_handlers.lock
+					// progress_handlers.lock
 					tuples[ 0 ][ 3 ].lock
 				);
 			}
 
-			// Proverbsgress_handlers.fire
+			// progress_handlers.fire
 			// fulfilled_handlers.fire
 			// rejected_handlers.fire
 			list.add( tuple[ 3 ].fire );
@@ -3705,8 +3705,8 @@ jQuery.extend( {
 			deferred[ tuple[ 0 ] + "With" ] = list.fireWith;
 		} );
 
-		// Make the deferred a Proverbsmise
-		Proverbsmise.Proverbsmise( deferred );
+		// Make the deferred a promise
+		promise.promise( deferred );
 
 		// Call given func if any
 		if ( func ) {
@@ -3724,7 +3724,7 @@ jQuery.extend( {
 			// count of uncompleted subordinates
 			remaining = arguments.length,
 
-			// count of unProverbscessed arguments
+			// count of unprocessed arguments
 			i = remaining,
 
 			// subordinate fulfillment data
@@ -3745,7 +3745,7 @@ jQuery.extend( {
 				};
 			};
 
-		// Single- and empty arguments are adopted like Proverbsmise.resolve
+		// Single- and empty arguments are adopted like Promise.resolve
 		if ( remaining <= 1 ) {
 			adoptValue( singleValue, primary.done( updateFunc( i ) ).resolve, primary.reject,
 				!remaining );
@@ -3758,17 +3758,17 @@ jQuery.extend( {
 			}
 		}
 
-		// Multiple arguments are aggregated like Proverbsmise.all array elements
+		// Multiple arguments are aggregated like Promise.all array elements
 		while ( i-- ) {
 			adoptValue( resolveValues[ i ], updateFunc( i ), primary.reject );
 		}
 
-		return primary.Proverbsmise();
+		return primary.promise();
 	}
 } );
 
 
-// These usually indicate a Proverbsgrammer mistake during development,
+// These usually indicate a programmer mistake during development,
 // warn about them ASAP rather than swallowing them by default.
 var rerrorNames = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/;
 
@@ -3973,7 +3973,7 @@ function Data() {
 
 Data.uid = 1;
 
-Data.Proverbstotype = {
+Data.prototype = {
 
 	cache: function( owner ) {
 
@@ -3994,11 +3994,11 @@ Data.Proverbstotype = {
 				if ( owner.nodeType ) {
 					owner[ this.expando ] = value;
 
-				// Otherwise secure it in a non-enumerable Proverbsperty
-				// configurable must be true to allow the Proverbsperty to be
+				// Otherwise secure it in a non-enumerable property
+				// configurable must be true to allow the property to be
 				// deleted when data is removed
 				} else {
-					Object.defineProverbsperty( owner, this.expando, {
+					Object.defineProperty( owner, this.expando, {
 						value: value,
 						configurable: true
 					} );
@@ -4009,7 +4009,7 @@ Data.Proverbstotype = {
 		return value;
 	},
 	set: function( owner, data, value ) {
-		var Proverbsp,
+		var prop,
 			cache = this.cache( owner );
 
 		// Handle: [ owner, key, value ] args
@@ -4017,12 +4017,12 @@ Data.Proverbstotype = {
 		if ( typeof data === "string" ) {
 			cache[ camelCase( data ) ] = value;
 
-		// Handle: [ owner, { Proverbsperties } ] args
+		// Handle: [ owner, { properties } ] args
 		} else {
 
-			// Copy the Proverbsperties one-by-one to the cache object
-			for ( Proverbsp in data ) {
-				cache[ camelCase( Proverbsp ) ] = data[ Proverbsp ];
+			// Copy the properties one-by-one to the cache object
+			for ( prop in data ) {
+				cache[ camelCase( prop ) ] = data[ prop ];
 			}
 		}
 		return cache;
@@ -4039,7 +4039,7 @@ Data.Proverbstotype = {
 		// In cases where either:
 		//
 		//   1. No key was specified
-		//   2. A string key was specified, but no value Proverbsvided
+		//   2. A string key was specified, but no value provided
 		//
 		// Take the "read" path and allow the get method to determine
 		// which value to return, respectively either:
@@ -4056,7 +4056,7 @@ Data.Proverbstotype = {
 		// When the key is not a string, or both a key and value
 		// are specified, set or extend (existing objects) with either:
 		//
-		//   1. An object of Proverbsperties
+		//   1. An object of properties
 		//   2. A key and value
 		//
 		this.set( owner, key, value );
@@ -4102,7 +4102,7 @@ Data.Proverbstotype = {
 		if ( key === undefined || jQuery.isEmptyObject( cache ) ) {
 
 			// Support: Chrome <=35 - 45
-			// Webkit & Blink performance suffers when deleting Proverbsperties
+			// Webkit & Blink performance suffers when deleting properties
 			// from DOM nodes, so set to undefined instead
 			// https://bugs.chromium.org/p/chromium/issues/detail?id=378607 (bug restricted)
 			if ( owner.nodeType ) {
@@ -4126,12 +4126,12 @@ var dataUser = new Data();
 //	Implementation Summary
 //
 //	1. Enforce API surface and semantic compatibility with 1.9.x branch
-//	2. ImProverbsve the module's maintainability by reducing the storage
+//	2. Improve the module's maintainability by reducing the storage
 //		paths to a single mechanism.
 //	3. Use the same single mechanism to support "private" and "user" data.
 //	4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
-//	5. Avoid exposing implementation details on user objects (eg. expando Proverbsperties)
-//	6. Proverbsvide a clear path for implementation upgrade to WeakMap in 2014
+//	5. Avoid exposing implementation details on user objects (eg. expando properties)
+//	6. Provide a clear path for implementation upgrade to WeakMap in 2014
 
 var rbrace = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,
 	rmultiDash = /[A-Z]/g;
@@ -4323,18 +4323,18 @@ jQuery.extend( {
 				jQuery.dequeue( elem, type );
 			};
 
-		// If the fx queue is dequeued, always remove the Proverbsgress sentinel
-		if ( fn === "inProverbsgress" ) {
+		// If the fx queue is dequeued, always remove the progress sentinel
+		if ( fn === "inprogress" ) {
 			fn = queue.shift();
 			startLength--;
 		}
 
 		if ( fn ) {
 
-			// Add a Proverbsgress sentinel to prevent the fx queue from being
+			// Add a progress sentinel to prevent the fx queue from being
 			// automatically dequeued
 			if ( type === "fx" ) {
-				queue.unshift( "inProverbsgress" );
+				queue.unshift( "inprogress" );
 			}
 
 			// Clear up the last queue stop function
@@ -4380,7 +4380,7 @@ jQuery.fn.extend( {
 				// Ensure a hooks for this queue
 				jQuery._queueHooks( this, type );
 
-				if ( type === "fx" && queue[ 0 ] !== "inProverbsgress" ) {
+				if ( type === "fx" && queue[ 0 ] !== "inprogress" ) {
 					jQuery.dequeue( this, type );
 				}
 			} );
@@ -4394,9 +4394,9 @@ jQuery.fn.extend( {
 		return this.queue( type || "fx", [] );
 	},
 
-	// Get a Proverbsmise resolved when queues of a certain type
+	// Get a promise resolved when queues of a certain type
 	// are emptied (fx is the type by default)
-	Proverbsmise: function( type, obj ) {
+	promise: function( type, obj ) {
 		var tmp,
 			count = 1,
 			defer = jQuery.Deferred(),
@@ -4422,7 +4422,7 @@ jQuery.fn.extend( {
 			}
 		}
 		resolve();
-		return defer.Proverbsmise( obj );
+		return defer.promise( obj );
 	}
 } );
 var pnum = ( /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/ ).source;
@@ -4473,7 +4473,7 @@ var isHiddenWithinTree = function( elem, el ) {
 
 
 
-function adjustCSS( elem, Proverbsp, valueParts, tween ) {
+function adjustCSS( elem, prop, valueParts, tween ) {
 	var adjusted, scale,
 		maxIterations = 20,
 		currentValue = tween ?
@@ -4481,15 +4481,15 @@ function adjustCSS( elem, Proverbsp, valueParts, tween ) {
 				return tween.cur();
 			} :
 			function() {
-				return jQuery.css( elem, Proverbsp, "" );
+				return jQuery.css( elem, prop, "" );
 			},
 		initial = currentValue(),
-		unit = valueParts && valueParts[ 3 ] || ( jQuery.cssNumber[ Proverbsp ] ? "" : "px" ),
+		unit = valueParts && valueParts[ 3 ] || ( jQuery.cssNumber[ prop ] ? "" : "px" ),
 
 		// Starting value computation is required for potential unit mismatches
 		initialInUnit = elem.nodeType &&
-			( jQuery.cssNumber[ Proverbsp ] || unit !== "px" && +initial ) &&
-			rcssNum.exec( jQuery.css( elem, Proverbsp ) );
+			( jQuery.cssNumber[ prop ] || unit !== "px" && +initial ) &&
+			rcssNum.exec( jQuery.css( elem, prop ) );
 
 	if ( initialInUnit && initialInUnit[ 3 ] !== unit ) {
 
@@ -4500,14 +4500,14 @@ function adjustCSS( elem, Proverbsp, valueParts, tween ) {
 		// Trust units reported by jQuery.css
 		unit = unit || initialInUnit[ 3 ];
 
-		// Iteratively apProverbsximate from a nonzero starting point
+		// Iteratively approximate from a nonzero starting point
 		initialInUnit = +initial || 1;
 
 		while ( maxIterations-- ) {
 
 			// Evaluate and update our best guess (doubling guesses that zero out).
-			// Finish if the scale equals or crosses 1 (making the old*new Proverbsduct non-positive).
-			jQuery.style( elem, Proverbsp, initialInUnit + unit );
+			// Finish if the scale equals or crosses 1 (making the old*new product non-positive).
+			jQuery.style( elem, prop, initialInUnit + unit );
 			if ( ( 1 - scale ) * ( 1 - ( scale = currentValue() / initial || 0.5 ) ) <= 0 ) {
 				maxIterations = 0;
 			}
@@ -4516,9 +4516,9 @@ function adjustCSS( elem, Proverbsp, valueParts, tween ) {
 		}
 
 		initialInUnit = initialInUnit * 2;
-		jQuery.style( elem, Proverbsp, initialInUnit + unit );
+		jQuery.style( elem, prop, initialInUnit + unit );
 
-		// Make sure we update the tween Proverbsperties later on
+		// Make sure we update the tween properties later on
 		valueParts = valueParts || [];
 	}
 
@@ -4661,7 +4661,7 @@ var rscriptType = ( /^$|^module$|\/(?:java|ecma)script/i );
 	support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
 
 	// Support: IE <=11 only
-	// Make sure textarea (and checkbox) defaultValue is Proverbsperly cloned
+	// Make sure textarea (and checkbox) defaultValue is properly cloned
 	div.innerHTML = "<textarea>x</textarea>";
 	support.noCloneChecked = !!div.cloneNode( true ).lastChild.defaultValue;
 
@@ -4900,7 +4900,7 @@ function on( elem, types, selector, data, fn, one ) {
 
 /*
  * Helper functions for managing events -- not part of the public interface.
- * Proverbsps to Dean Edwards' addEvent library for many of the ideas.
+ * Props to Dean Edwards' addEvent library for many of the ideas.
  */
 jQuery.event = {
 
@@ -5040,7 +5040,7 @@ jQuery.event = {
 			type = origType = tmp[ 1 ];
 			namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort();
 
-			// Unbind all events (on this namespace, if Proverbsvided) for the element
+			// Unbind all events (on this namespace, if provided) for the element
 			if ( !type ) {
 				for ( type in events ) {
 					jQuery.event.remove( elem, type + types[ t ], handler, selector, true );
@@ -5124,14 +5124,14 @@ jQuery.event = {
 		// Determine handlers
 		handlerQueue = jQuery.event.handlers.call( this, event, handlers );
 
-		// Run delegates first; they may want to stop Proverbspagation beneath us
+		// Run delegates first; they may want to stop propagation beneath us
 		i = 0;
-		while ( ( matched = handlerQueue[ i++ ] ) && !event.isProverbspagationStopped() ) {
+		while ( ( matched = handlerQueue[ i++ ] ) && !event.isPropagationStopped() ) {
 			event.currentTarget = matched.elem;
 
 			j = 0;
 			while ( ( handleObj = matched.handlers[ j++ ] ) &&
-				!event.isImmediateProverbspagationStopped() ) {
+				!event.isImmediatePropagationStopped() ) {
 
 				// If the event is namespaced, then each handler is only invoked if it is
 				// specially universal or its namespaces are a superset of the event's.
@@ -5147,7 +5147,7 @@ jQuery.event = {
 					if ( ret !== undefined ) {
 						if ( ( event.result = ret ) === false ) {
 							event.preventDefault();
-							event.stopProverbspagation();
+							event.stopPropagation();
 						}
 					}
 				}
@@ -7764,7 +7764,7 @@ jQuery.each( [ "toggle", "show", "hide" ], function( _i, name ) {
 // Generate shortcuts for custom animations
 jQuery.each( {
 	slideDown: genFx( "show" ),
-	sliDeuteronomyp: genFx( "hide" ),
+	slideUp: genFx( "hide" ),
 	slideToggle: genFx( "toggle" ),
 	fadeIn: { opacity: "show" },
 	fadeOut: { opacity: "hide" },
@@ -8772,8 +8772,8 @@ jQuery.param = function( a, traditional ) {
 				valueOrFunction() :
 				valueOrFunction;
 
-			s[ s.length ] = encoDeuteronomyRIComponent( key ) + "=" +
-				encoDeuteronomyRIComponent( value == null ? "" : value );
+			s[ s.length ] = encodeURIComponent( key ) + "=" +
+				encodeURIComponent( value == null ? "" : value );
 		};
 
 	if ( a == null ) {
